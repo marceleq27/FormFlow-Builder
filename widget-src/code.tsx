@@ -198,12 +198,12 @@ function Radio(
   );
 }
 
-// This is the radio widget
+// This is the input widget
 
 function Input(
   props: Partial<AutoLayoutProps>
 ) {
-  console.log("Rendering Radio component with props:", props);
+  console.log("Rendering Input component with props:", props);
 
   return (
     <AutoLayout
@@ -327,11 +327,6 @@ function Widget(
         itemType: "action",
         propertyName: "addWidget",
         tooltip: "Add New Widget",
-      },
-      {
-        itemType: "action",
-        propertyName: "addConnector",
-        tooltip: "Add Connector",
       }
     ],
     ({ propertyName, propertyValue }) => {
@@ -357,22 +352,21 @@ function Widget(
               endpointNodeId: newWidget.id,
               magnet: "TOP",
             };
+          } else {
+            // Create a new connector if none exists
+            const connector = figma.createConnector();
+            connector.connectorStart = {
+              endpointNodeId: currentWidget.id,
+              magnet: "BOTTOM",
+            };
+            connector.connectorEnd = {
+              endpointNodeId: newWidget.id,
+              magnet: "TOP",
+            };
+            connector.connectorStartStrokeCap = "CIRCLE_FILLED";
+            connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
+            figma.currentPage.appendChild(connector);
           }
-        }
-      } else if (propertyName === "addConnector") {
-        const currentWidget = figma.currentPage.selection[0] as WidgetNode;
-        if (currentWidget && currentWidget.type === "WIDGET") {
-          const connector = figma.createConnector();
-          connector.connectorStart = {
-            endpointNodeId: currentWidget.id,
-            magnet: "BOTTOM",
-          };
-          connector.connectorEnd = {
-            position: { x: currentWidget.x, y: currentWidget.y + currentWidget.height + 100 },
-          };
-          connector.connectorStartStrokeCap = "CIRCLE_FILLED";
-          connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
-          figma.currentPage.appendChild(connector);
         }
       }
     }
