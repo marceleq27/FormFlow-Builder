@@ -345,9 +345,19 @@ function Widget(
         const currentWidget = figma.currentPage.selection[0] as WidgetNode;
         if (currentWidget && currentWidget.type === "WIDGET") {
           const newWidget = currentWidget.cloneWidget({});
-          newWidget.x += 100; // Adjust position as needed
-          newWidget.y += 100; // Adjust position as needed
+          newWidget.x += 0; // Adjust position as needed
+          newWidget.y += 200; // Adjust position as needed
           figma.currentPage.appendChild(newWidget);
+
+          // Check if there's an existing connector on the current widget
+          const attachedConnectors = currentWidget.attachedConnectors;
+          if (attachedConnectors.length > 0) {
+            const connector = attachedConnectors[0];
+            connector.connectorEnd = {
+              endpointNodeId: newWidget.id,
+              magnet: "TOP",
+            };
+          }
         }
       } else if (propertyName === "addConnector") {
         const currentWidget = figma.currentPage.selection[0] as WidgetNode;
