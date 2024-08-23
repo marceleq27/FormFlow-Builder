@@ -344,29 +344,19 @@ function Widget(
           newWidget.y += 200; // Adjust position as needed
           figma.currentPage.appendChild(newWidget);
 
-          // Check if there's an existing connector on the current widget
-          const attachedConnectors = currentWidget.attachedConnectors;
-          if (attachedConnectors.length > 0) {
-            const connector = attachedConnectors[0];
-            connector.connectorEnd = {
-              endpointNodeId: newWidget.id,
-              magnet: "TOP",
-            };
-          } else {
-            // Create a new connector if none exists
-            const connector = figma.createConnector();
-            connector.connectorStart = {
-              endpointNodeId: currentWidget.id,
-              magnet: "BOTTOM",
-            };
-            connector.connectorEnd = {
-              endpointNodeId: newWidget.id,
-              magnet: "TOP",
-            };
-            connector.connectorStartStrokeCap = "CIRCLE_FILLED";
-            connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
-            figma.currentPage.appendChild(connector);
-          }
+          // Create a new connector from the current widget to the new widget
+          const connector = figma.createConnector();
+          connector.connectorStart = {
+            endpointNodeId: currentWidget.id,
+            magnet: "BOTTOM",
+          };
+          connector.connectorEnd = {
+            endpointNodeId: newWidget.id,
+            magnet: "TOP",
+          };
+          connector.connectorStartStrokeCap = "CIRCLE_FILLED";
+          connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
+          figma.currentPage.appendChild(connector);
         }
       }
     }
