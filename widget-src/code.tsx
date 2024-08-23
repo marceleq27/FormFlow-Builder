@@ -327,6 +327,11 @@ function Widget(
         itemType: "action",
         propertyName: "addWidget",
         tooltip: "Add New Widget",
+      },
+      {
+        itemType: "action",
+        propertyName: "addConnector",
+        tooltip: "Add Connector",
       }
     ],
     ({ propertyName, propertyValue }) => {
@@ -343,6 +348,20 @@ function Widget(
           newWidget.x += 100; // Adjust position as needed
           newWidget.y += 100; // Adjust position as needed
           figma.currentPage.appendChild(newWidget);
+        }
+      } else if (propertyName === "addConnector") {
+        const currentWidget = figma.currentPage.selection[0] as WidgetNode;
+        if (currentWidget && currentWidget.type === "WIDGET") {
+          const connector = figma.createConnector();
+          connector.connectorStart = {
+            endpointNodeId: currentWidget.id,
+            magnet: "BOTTOM",
+          };
+          connector.connectorEnd = {
+            position: { x: currentWidget.x, y: currentWidget.y + currentWidget.height + 100 },
+          };
+          connector.connectorStartStrokeCap = "CIRCLE_FILLED";
+          figma.currentPage.appendChild(connector);
         }
       }
     }
