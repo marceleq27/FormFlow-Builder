@@ -1,36 +1,35 @@
-Below are the steps to get your widget running. You can also find instructions at:
 
-https://www.figma.com/widget-docs/setup-guide/
+# FormFlow Builder for Figjam
+FormFlow Builder is a Figjam widget designed to streamline the process of creating and visualising form flows. Whether you're designing a complex questionnaire, a multi-step form, or a user onboarding process, FormFlow Builder enables you to quickly build out form structures with ease.
 
-This widget template uses TypeScript and NPM, two standard tools in creating JavaScript applications.
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
 
-https://nodejs.org/en/download/
 
-Next, install TypeScript, esbuild and the latest type definitions by running:
 
-npm install
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+## Features
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+- Drag-and-Drop Interface: Effortlessly arrange and connect form components such as radio buttons, input fields, and checkboxes.
+- Real-time Visualisation: Instantly see how your form flow takes shape as you build, with clear labels and logical flow connections.
+- Customizable Components: Easily customize each form component to match the specific requirements of your design.
+- Collaborative Design: Perfect for teams, allowing multiple designers to work on form flows simultaneously.
 
-For more information, visit https://www.typescriptlang.org/
+## Installation
 
-Using TypeScript requires a compiler to convert TypeScript (widget-src/code.tsx) into JavaScript (dist/code.js)
-for the browser to run. We use esbuild to do this for us.
+Getting Started:
+Install the FormFlow Builder widget in your Figma environment.
+```
+link here
 
-We recommend writing TypeScript code using Visual Studio code:
+```
+1. Start building by dragging components into the canvas and connecting them to create your desired flow.
+2. Customize each component with your specific questions, input types, and conditions.
+3. Review and refine your form flow for usability and clarity.
+Whether you're building a simple survey or a complex registration process, 
 
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-   then select "npm: watch". You will have to do this again every time
-   you reopen Visual Studio Code.
+FormFlow Builder provides all the tools you need to create user-friendly and efficient form designs.
 
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+
+
+
+    
