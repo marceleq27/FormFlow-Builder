@@ -323,6 +323,11 @@ function Widget(
         ],
         selectedOption: questionType,
       }] : []),
+      {
+        itemType: "action",
+        propertyName: "addWidget",
+        tooltip: "Add New Widget",
+      }
     ],
     ({ propertyName, propertyValue }) => {
       if (propertyName === "contentType") {
@@ -331,6 +336,14 @@ function Widget(
       } else if (propertyName === "questionType") {
         console.log(`Changing question type to: ${propertyValue}`); // Debugging log
         setQuestionType(propertyValue);
+      } else if (propertyName === "addWidget") {
+        const currentWidget = figma.currentPage.selection[0] as WidgetNode;
+        if (currentWidget && currentWidget.type === "WIDGET") {
+          const newWidget = currentWidget.cloneWidget({});
+          newWidget.x += 100; // Adjust position as needed
+          newWidget.y += 100; // Adjust position as needed
+          figma.currentPage.appendChild(newWidget);
+        }
       }
     }
   );
