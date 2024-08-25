@@ -17,9 +17,9 @@ function Widget(props: Partial<AutoLayoutProps>) {
         propertyName: "contentType",
         tooltip: "Select Content Type",
         options: [
-          { option: "answer", label: "Answer" },
           { option: "header", label: "Header" },
           { option: "question", label: "Question" },
+          { option: "answer", label: "Answer" },
         ],
         selectedOption: contentType,
       },
@@ -99,15 +99,15 @@ function Widget(props: Partial<AutoLayoutProps>) {
   console.log(`Current question type: ${questionType}`); // Debugging log
 
   try {
-    if (contentType === "answer") {
-      console.log("Rendering Answer component"); // Debugging log
-      return <Answer {...props} />;
-    } else if (contentType === "header") {
+    if (contentType === "header") {
       console.log("Rendering Header component"); // Debugging log
       return <Header {...props} />;
     } else if (contentType === "question") {
       console.log("Rendering Question component"); // Debugging log
       return questionType === "radio" ? <Radio {...props} /> : <InputWidget {...props} />;
+    } else if (contentType === "answer") {
+      console.log("Rendering Answer component"); // Debugging log
+      return <Answer {...props} />;
     } else {
       console.log("Error: Invalid content type"); // Debugging log
       return <Text>Error: Invalid content type</Text>;

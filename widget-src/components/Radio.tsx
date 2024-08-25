@@ -2,65 +2,183 @@ const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
 function Radio(props: Partial<AutoLayoutProps>) {
     const [radioText, setRadioText] = useSyncedState("radioText", "");
+    const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
 
     console.log("Rendering Radio component with props:", props);
 
     return (
         <AutoLayout
-            name="Radio"
-            effect={{
-                type: "drop-shadow",
-                color: "#00000014",
-                offset: { x: 0, y: 2 },
-                blur: 14.1,
-                showShadowBehindNode: false,
-            }}
-            fill="#FFF"
-            stroke="#E2E8F0"
-            cornerRadius={16}
+            name="Question"
+            overflow="visible"
             direction="vertical"
-            spacing={20}
-            padding={{ vertical: 27, horizontal: 23 }}
-            width={352}
-            {...props}
+            width={370}
+            horizontalAlignItems="center"
         >
-            <Input
-                name="Input"
-                value={radioText}
-                placeholder="Question..."
-                onTextEditEnd={(event) => setRadioText(event.characters)}
-                fill="#1E1E1E"
-                width={306}
-                lineHeight="150%"
-                fontFamily="Inter"
-                fontSize={18}
-                letterSpacing={-0.198}
-                fontWeight={500}
-            />
             <AutoLayout
-                name="form-builder-badge"
-                fill="#FEF9C3"
-                cornerRadius={8}
+                name="badge-container"
                 overflow="visible"
-                spacing={4}
-                padding={{ vertical: 4, horizontal: 8 }}
-                verticalAlignItems="center"
+                spacing={10}
+                width={77}
+                horizontalAlignItems="end"
             >
-                <Frame name="Icon" strokeWidth={0.833} width={20} height={20}>
-                    <SVG
-                        name="Vector"
-                        x={{ type: "horizontal-scale", leftOffsetPercent: 9.375, rightOffsetPercent: 9.375 }}
-                        y={{ type: "vertical-scale", topOffsetPercent: 9.375, bottomOffsetPercent: 9.375 }}
-                        height={16}
-                        width={16}
-                        src="<svg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'>
-<path d='M9 0.875008C7.39303 0.875008 5.82214 1.35153 4.486 2.24432C3.14985 3.1371 2.10844 4.40605 1.49348 5.8907C0.87852 7.37535 0.717618 9.00902 1.03112 10.5851C1.34463 12.1612 2.11846 13.6089 3.25476 14.7453C4.39106 15.8816 5.8388 16.6554 7.41489 16.9689C8.99099 17.2824 10.6247 17.1215 12.1093 16.5065C13.594 15.8916 14.8629 14.8502 15.7557 13.514C16.6485 12.1779 17.125 10.607 17.125 9.00001C17.1227 6.84582 16.266 4.78052 14.7427 3.25728C13.2195 1.73404 11.1542 0.877282 9 0.875008ZM9 15.875C7.64026 15.875 6.31105 15.4718 5.18046 14.7164C4.04987 13.9609 3.16868 12.8872 2.64833 11.631C2.12798 10.3747 1.99183 8.99238 2.2571 7.65876C2.52238 6.32514 3.17716 5.10013 4.13864 4.13865C5.10013 3.17716 6.32514 2.52238 7.65876 2.25711C8.99238 1.99184 10.3747 2.12798 11.631 2.64834C12.8872 3.16869 13.9609 4.04987 14.7164 5.18046C15.4718 6.31105 15.875 7.64026 15.875 9.00001C15.8729 10.8227 15.1479 12.5702 13.8591 13.8591C12.5702 15.1479 10.8227 15.8729 9 15.875ZM13.375 9.00001C13.375 9.8653 13.1184 10.7112 12.6377 11.4306C12.157 12.1501 11.4737 12.7108 10.6742 13.042C9.87482 13.3731 8.99515 13.4598 8.14648 13.2909C7.29782 13.1221 6.51827 12.7055 5.90641 12.0936C5.29456 11.4817 4.87788 10.7022 4.70907 9.85353C4.54026 9.00486 4.6269 8.12519 4.95803 7.32577C5.28916 6.52634 5.84992 5.84306 6.56938 5.36233C7.28885 4.8816 8.13471 4.62501 9 4.62501C10.1599 4.62625 11.272 5.08758 12.0922 5.90779C12.9124 6.72799 13.3738 7.84007 13.375 9.00001Z' fill='#854D0E'/>
-</svg>"
+                <AutoLayout
+                    name="number"
+                    fill="#E0E7FF"
+                    height={29}
+                    cornerRadius={{
+                        topLeft: 8,
+                        topRight: 8,
+                        bottomRight: 0,
+                        bottomLeft: 0,
+                    }}
+                    overflow="visible"
+                    spacing={6}
+                    padding={{
+                        vertical: 4,
+                        horizontal: 8,
+                    }}
+                    horizontalAlignItems="center"
+                    verticalAlignItems="center"
+                >
+                    <Input
+                        name="numberInput"
+                        value={numberInputText}
+                        placeholder="1.1"
+                        onTextEditEnd={(event) => setNumberInputText(event.characters)}
+                        fill="#393A78"
+                        lineHeight="150%"
+                        fontFamily="Inter"
+                        fontSize={14}
+                        letterSpacing={-0.154}
+                        fontWeight={600}
+                        width={32}
+                        horizontalAlignText="center"
                     />
-                </Frame>
-                <Text name="Input" fill="#854D0E" lineHeight="150%" fontFamily="Inter" fontWeight={600}>
-                    Radio
-                </Text>
+                </AutoLayout>
+                <AutoLayout
+                    name="label"
+                    fill="#E0E7FF"
+                    cornerRadius={{
+                        topLeft: 8,
+                        topRight: 8,
+                        bottomRight: 0,
+                        bottomLeft: 0,
+                    }}
+                    overflow="visible"
+                    spacing={6}
+                    padding={{
+                        vertical: 4,
+                        horizontal: 8,
+                    }}
+                    horizontalAlignItems="center"
+                    verticalAlignItems="center"
+                >
+                    <Text
+                        name="Question"
+                        fill="#393A78"
+                        lineHeight="150%"
+                        fontFamily="Inter"
+                        fontSize={14}
+                        letterSpacing={
+                            -0.154
+                        }
+                        fontWeight={600}
+                    >
+                        Question
+                    </Text>
+                </AutoLayout>
+            </AutoLayout>
+            <AutoLayout
+                name="main"
+                effect={{
+                    type: "drop-shadow",
+                    color: "#0000002E",
+                    offset: {
+                        x: 0,
+                        y: 1,
+                    },
+                    blur: 3.2,
+                    showShadowBehindNode:
+                        false,
+                }}
+                fill="#FFF"
+                cornerRadius={12}
+                strokeWidth={2}
+                strokeAlign="outside"
+                direction="vertical"
+                spacing={12}
+                padding={{
+                    vertical: 12,
+                    horizontal: 14,
+                }}
+                width="fill-parent"
+            >
+                <Input
+                    name="Input"
+                    value={radioText}
+                    placeholder="Question..."
+                    onTextEditEnd={(event) => setRadioText(event.characters)}
+                    fill="#1E1E1E"
+                    width={306}
+                    lineHeight="150%"
+                    fontFamily="Inter"
+                    fontSize={18}
+                    letterSpacing={-0.198}
+                    fontWeight={500}
+                />
+                <AutoLayout
+                    name="type-label"
+                    fill="#E3E4E8"
+                    cornerRadius={5}
+                    overflow="visible"
+                    spacing={3}
+                    padding={{
+                        vertical: 2,
+                        horizontal: 4,
+                    }}
+                    horizontalAlignItems="center"
+                    verticalAlignItems="center"
+                >
+                    <Frame
+                        name="Icon"
+                        strokeWidth={0.5}
+                        width={12}
+                        height={12}
+                    >
+                        <SVG
+                            name="Vector"
+                            x={{
+                                type: "horizontal-scale",
+                                leftOffsetPercent: 9.375,
+                                rightOffsetPercent: 9.375,
+                            }}
+                            y={{
+                                type: "vertical-scale",
+                                topOffsetPercent: 9.375,
+                                bottomOffsetPercent: 9.375,
+                            }}
+                            height={10}
+                            width={10}
+                            src="<svg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+<path d='M5 0.125C4.03582 0.125 3.09329 0.410914 2.2916 0.946586C1.48991 1.48226 0.865067 2.24363 0.496089 3.13442C0.127112 4.02521 0.030571 5.00541 0.218674 5.95107C0.406777 6.89672 0.871076 7.76536 1.55286 8.44715C2.23464 9.12893 3.10328 9.59323 4.04894 9.78133C4.99459 9.96943 5.97479 9.87289 6.86558 9.50391C7.75637 9.13494 8.51775 8.51009 9.05342 7.7084C9.58909 6.90671 9.875 5.96418 9.875 5C9.87364 3.70749 9.35958 2.46831 8.44564 1.55436C7.5317 0.640418 6.29251 0.126365 5 0.125ZM5 9.125C4.18415 9.125 3.38663 8.88307 2.70827 8.42981C2.02992 7.97655 1.50121 7.33231 1.189 6.57857C0.876788 5.82482 0.795099 4.99542 0.954263 4.19525C1.11343 3.39508 1.5063 2.66008 2.08319 2.08318C2.66008 1.50629 3.39508 1.11342 4.19525 0.954261C4.99543 0.795097 5.82483 0.876785 6.57857 1.189C7.33232 1.50121 7.97655 2.02992 8.42981 2.70827C8.88307 3.38663 9.125 4.18415 9.125 5C9.12376 6.09364 8.68877 7.14213 7.91545 7.91545C7.14213 8.68876 6.09364 9.12376 5 9.125ZM7.625 5C7.625 5.51918 7.47105 6.02669 7.18261 6.45837C6.89417 6.89005 6.4842 7.2265 6.00455 7.42518C5.52489 7.62386 4.99709 7.67585 4.48789 7.57456C3.97869 7.47328 3.51096 7.22327 3.14385 6.85616C2.77673 6.48904 2.52673 6.02131 2.42544 5.51211C2.32415 5.00291 2.37614 4.47511 2.57482 3.99546C2.7735 3.5158 3.10995 3.10583 3.54163 2.81739C3.97331 2.52895 4.48083 2.375 5 2.375C5.69597 2.37574 6.36321 2.65255 6.85534 3.14467C7.34746 3.63679 7.62426 4.30404 7.625 5Z' fill='#30333D'/>
+</svg>
+"
+                        />
+                    </Frame>
+                    <Text
+                        name="Radio"
+                        fill="#30333D"
+                        lineHeight="150%"
+                        fontFamily="Inter"
+                        fontSize={12}
+                        letterSpacing={
+                            -0.132
+                        }
+                        fontWeight={500}
+                    >
+                        Radio
+                    </Text>
+                </AutoLayout>
             </AutoLayout>
         </AutoLayout>
     );
