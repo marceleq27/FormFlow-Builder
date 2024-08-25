@@ -86,7 +86,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
             endpointNodeId: newWidget.id,
             magnet: "TOP",
           };
-          connector.connectorStartStrokeCap = "CIRCLE_FILLED";
+          connector.connectorStartStrokeCap = "NONE";
+          connector.connectorEndStrokeCap = "NONE";
           connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
           figma.currentPage.appendChild(connector);
         }
