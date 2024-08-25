@@ -461,7 +461,13 @@ function Widget(
       } else if (propertyName === "addWidget") {
         const currentWidget = figma.currentPage.selection[0] as WidgetNode;
         if (currentWidget && currentWidget.type === "WIDGET") {
-          const newWidget = currentWidget.cloneWidget({});
+          const newWidget = currentWidget.cloneWidget({
+            answerText: "",
+            headerText: "",
+            radioText: "",
+            inputText: "",
+            questionText: ""
+          });
           newWidget.x += 0; // Adjust position as needed
           newWidget.y += 200; // Adjust position as needed
           figma.currentPage.appendChild(newWidget);
