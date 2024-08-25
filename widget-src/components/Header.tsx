@@ -1,4 +1,4 @@
-const { useSyncedState, AutoLayout, Input } = figma;
+const { useSyncedState, AutoLayout, Input } = figma.widget;
 
 function Header(props: Partial<AutoLayoutProps>) {
     const [headerText, setHeaderText] = useSyncedState("headerText", "");

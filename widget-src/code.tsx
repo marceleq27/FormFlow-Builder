@@ -99,12 +99,16 @@ function Widget(props: Partial<AutoLayoutProps>) {
 
   try {
     if (contentType === "answer") {
+      console.log("Rendering Answer component"); // Debugging log
       return <Answer {...props} />;
     } else if (contentType === "header") {
+      console.log("Rendering Header component"); // Debugging log
       return <Header {...props} />;
     } else if (contentType === "question") {
+      console.log("Rendering Question component"); // Debugging log
       return questionType === "radio" ? <Radio {...props} /> : <InputWidget {...props} />;
     } else {
+      console.log("Error: Invalid content type"); // Debugging log
       return <Text>Error: Invalid content type</Text>;
     }
   } catch (error) {

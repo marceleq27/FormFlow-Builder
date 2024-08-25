@@ -1,4 +1,4 @@
-const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma;
+const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
 function InputWidget(props: Partial<AutoLayoutProps>) {
     const [inputText, setInputText] = useSyncedState("inputText", "");
