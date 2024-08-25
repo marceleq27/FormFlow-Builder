@@ -8,9 +8,15 @@
       "es2016"
     ],
     "strict": true,
+    "module": "commonjs",
+    "outDir": "./dist",
     "typeRoots": [
       "../node_modules/@types",
       "../node_modules/@figma"
     ]
-  }
+  },
+  "include": [
+    "widget-src/**/*.ts",
+    "widget-src/**/*.tsx"
+  ]
 }
