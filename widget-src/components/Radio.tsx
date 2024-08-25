@@ -1,6 +1,6 @@
 const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
-function Radio(props: Partial<AutoLayoutProps>) {
+function Radio(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean }) {
     const [radioText, setRadioText] = useSyncedState("radioText", "");
     const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
     const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
@@ -188,33 +188,35 @@ function Radio(props: Partial<AutoLayoutProps>) {
                         </Text>
                     </AutoLayout>
                 </AutoLayout>
-                <AutoLayout
-                    name="additonal"
-                    fill="#FFF"
-                    strokeWidth={2}
-                    strokeAlign="outside"
-                    direction="vertical"
-                    spacing={8}
-                    padding={{
-                        vertical: 12,
-                        horizontal: 14,
-                    }}
-                    width="fill-parent"
-                >
-                    <Input
-                        name="additionalInput"
-                        value={additionalInputText}
-                        placeholder="Additional information"
-                        onTextEditEnd={(event) => setAdditionalInputText(event.characters)}
-                        fill="#1E1E1E9E"
+                {props.showAdditionalInput && (
+                    <AutoLayout
+                        name="additonal"
+                        fill="#FFF"
+                        strokeWidth={2}
+                        strokeAlign="outside"
+                        direction="vertical"
+                        spacing={8}
+                        padding={{
+                            vertical: 12,
+                            horizontal: 14,
+                        }}
                         width="fill-parent"
-                        lineHeight="150%"
-                        fontFamily="Inter"
-                        fontSize={12}
-                        letterSpacing={-0.132}
-                        fontWeight={500}
-                    />
-                </AutoLayout>
+                    >
+                        <Input
+                            name="additionalInput"
+                            value={additionalInputText}
+                            placeholder="Additional information"
+                            onTextEditEnd={(event) => setAdditionalInputText(event.characters)}
+                            fill="#1E1E1E9E"
+                            width="fill-parent"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={12}
+                            letterSpacing={-0.132}
+                            fontWeight={500}
+                        />
+                    </AutoLayout>
+                )}
             </AutoLayout>
         </AutoLayout>
     );

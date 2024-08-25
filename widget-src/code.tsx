@@ -9,6 +9,7 @@ const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
 function Widget(props: Partial<AutoLayoutProps>) {
   const [contentType, setContentType] = useSyncedState("contentType", "answer");
   const [questionType, setQuestionType] = useSyncedState("questionType", "radio");
+  const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", true);
 
   usePropertyMenu(
     [
@@ -53,6 +54,12 @@ function Widget(props: Partial<AutoLayoutProps>) {
 <path fill-rule='evenodd' clip-rule='evenodd' d='M0 56C0 23.9593 29.853 0 64 0C98.147 0 128 23.9593 128 56C128 85.5094 102.678 108.164 72 111.559V120C72 124.418 68.4183 128 64 128C59.5817 128 56 124.418 56 120V104C56 99.5817 59.5817 96 64 96C91.713 96 112 76.9793 112 56C112 35.0207 91.713 16 64 16C36.287 16 16 35.0207 16 56C16 60.4183 12.4183 64 8 64C3.58172 64 0 60.4183 0 56Z' fill='white'/>
 <path d='M64 184C72.8366 184 80 176.837 80 168C80 159.163 72.8366 152 64 152C55.1634 152 48 159.163 48 168C48 176.837 55.1634 184 64 184Z' fill='white'/>
 </svg>`
+      },
+      {
+        itemType: "toggle",
+        propertyName: "toggleAdditionalInput",
+        tooltip: "Show/Hide Additional Input",
+        isToggled: showAdditionalInput,
       }
     ],
     ({ propertyName, propertyValue }) => {
@@ -91,6 +98,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
           connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
           figma.currentPage.appendChild(connector);
         }
+      } else if (propertyName === "toggleAdditionalInput") {
+        setShowAdditionalInput(!showAdditionalInput);
       }
     }
   );
@@ -104,7 +113,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <Header {...props} />;
     } else if (contentType === "question") {
       console.log("Rendering Question component"); // Debugging log
-      return questionType === "radio" ? <Radio {...props} /> : <InputWidget {...props} />;
+      return questionType === "radio" ? <Radio {...props} showAdditionalInput={showAdditionalInput} /> : <InputWidget {...props} />;
     } else if (contentType === "answer") {
       console.log("Rendering Answer component"); // Debugging log
       return <Answer {...props} />;
