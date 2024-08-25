@@ -205,7 +205,7 @@ function Radio(props: Partial<AutoLayoutProps>) {
                     <Input
                         name="additionalInput"
                         value={additionalInputText}
-                        placeholder="Additional input"
+                        placeholder="Additional information"
                         onTextEditEnd={(event) => setAdditionalInputText(event.characters)}
                         fill="#1E1E1E9E"
                         width="fill-parent"
