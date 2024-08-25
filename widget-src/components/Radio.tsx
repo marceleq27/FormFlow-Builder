@@ -91,6 +91,7 @@ function Radio(props: Partial<AutoLayoutProps>) {
             </AutoLayout>
             <AutoLayout
                 name="Main"
+                overflow="hidden"
                 effect={{
                     type: "drop-shadow",
                     color: "#0000002E",
@@ -104,8 +105,6 @@ function Radio(props: Partial<AutoLayoutProps>) {
                 }}
                 fill="#FFF"
                 cornerRadius={12}
-                strokeWidth={2}
-                strokeAlign="outside"
                 direction="vertical"
                 width={372}
             >
@@ -136,7 +135,7 @@ function Radio(props: Partial<AutoLayoutProps>) {
                         fontWeight={500}
                     />
                     <AutoLayout
-                        name="Frame 3"
+                        name="type-badge"
                         fill="#E3E4E8"
                         cornerRadius={5}
                         overflow="visible"
