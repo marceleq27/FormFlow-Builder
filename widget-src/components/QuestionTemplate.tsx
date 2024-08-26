@@ -152,13 +152,15 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                     >
                         <Frame
                             name="Icon"
-                            strokeWidth={0.5}
                             width={12}
                             height={12}
+                            overflow="visible"
                         >
                             <SVG
                                 name="Vector"
                                 src={props.iconSvg}
+                                width="fill-parent"
+                                height="fill-parent"
                             />
                         </Frame>
                         <Text
