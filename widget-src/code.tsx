@@ -2,6 +2,7 @@ import Answer from './components/Answer';
 import Header from './components/Header';
 import Radio from './components/Radio';
 import InputWidget from './components/Input';
+import Dropdown from './components/Dropdown';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -31,6 +32,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         options: [
           { option: "radio", label: "Radio" },
           { option: "input", label: "Input" },
+          { option: "dropdown", label: "Dropdown" }, // Add this line
         ],
         selectedOption: questionType,
       }] : []),
@@ -119,7 +121,17 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <Header {...props} />;
     } else if (contentType === "question") {
       console.log("Rendering Question component"); // Debugging log
-      return questionType === "radio" ? <Radio {...props} showAdditionalInput={showAdditionalInput} /> : <InputWidget {...props} />;
+      switch (questionType) {
+        case "radio":
+          return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
+        case "input":
+          return <InputWidget {...props} showAdditionalInput={showAdditionalInput} />;
+        case "dropdown":
+          return <Dropdown {...props} showAdditionalInput={showAdditionalInput} />;
+        default:
+          console.log("Error: Invalid question type"); // Debugging log
+          return <Text>Error: Invalid question type</Text>;
+      }
     } else if (contentType === "answer") {
       console.log("Rendering Answer component"); // Debugging log
       return <Answer {...props} />;
