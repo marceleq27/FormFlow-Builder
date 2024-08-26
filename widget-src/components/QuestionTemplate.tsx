@@ -150,19 +150,19 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                         horizontalAlignItems="center"
                         verticalAlignItems="center"
                     >
-                        <Frame
+                        <AutoLayout
                             name="Icon"
                             width={12}
                             height={12}
                             overflow="visible"
+                            horizontalAlignItems="center"
+                            verticalAlignItems="center"
                         >
                             <SVG
                                 name="Vector"
                                 src={props.iconSvg}
-                                width="fill-parent"
-                                height="fill-parent"
                             />
-                        </Frame>
+                        </AutoLayout>
                         <Text
                             name="form-type"
                             fill="#30333D"
@@ -170,7 +170,7 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                             fontFamily="Inter"
                             fontSize={12}
                             letterSpacing={-0.132}
-                            fontWeight={500}
+                            fontWeight={600}
                         >
                             {props.questionType}
                         </Text>

@@ -1,8 +1,9 @@
 import Answer from './components/Answer';
 import Header from './components/Header';
 import Radio from './components/Radio';
-import InputWidget from './components/Input';
+import Input from './components/Input';
 import Dropdown from './components/Dropdown';
+import Checkbox from './components/Checkbox';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -32,7 +33,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         options: [
           { option: "radio", label: "Radio" },
           { option: "input", label: "Input" },
-          { option: "dropdown", label: "Dropdown" }, // Add this line
+          { option: "dropdown", label: "Dropdown" },
+          { option: "checkbox", label: "Checkbox" }, // Add this line
         ],
         selectedOption: questionType,
       }] : []),
@@ -125,9 +127,11 @@ function Widget(props: Partial<AutoLayoutProps>) {
         case "radio":
           return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
         case "input":
-          return <InputWidget {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Input {...props} showAdditionalInput={showAdditionalInput} />;
         case "dropdown":
           return <Dropdown {...props} showAdditionalInput={showAdditionalInput} />;
+        case "checkbox":
+          return <Checkbox {...props} showAdditionalInput={showAdditionalInput} />;
         default:
           console.log("Error: Invalid question type"); // Debugging log
           return <Text>Error: Invalid question type</Text>;
