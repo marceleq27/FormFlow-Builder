@@ -1,7 +1,7 @@
 import Answer from './components/Answer';
 import Header from './components/Header';
 import Radio from './components/Radio';
-import InputWidget from './components/InputWidget';
+import InputWidget from './components/Input';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
