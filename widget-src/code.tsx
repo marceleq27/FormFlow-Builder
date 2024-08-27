@@ -4,6 +4,7 @@ import Radio from './components/Radio';
 import Input from './components/Input';
 import Dropdown from './components/Dropdown';
 import Checkbox from './components/Checkbox';
+import Datepicker from './components/Datepicker';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -34,7 +35,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
           { option: "radio", label: "Radio" },
           { option: "input", label: "Input" },
           { option: "dropdown", label: "Dropdown" },
-          { option: "checkbox", label: "Checkbox" }, // Add this line
+          { option: "checkbox", label: "Checkbox" },
+          { option: "datepicker", label: "Datepicker" },
         ],
         selectedOption: questionType,
       }] : []),
@@ -132,6 +134,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
           return <Dropdown {...props} showAdditionalInput={showAdditionalInput} />;
         case "checkbox":
           return <Checkbox {...props} showAdditionalInput={showAdditionalInput} />;
+        case "datepicker":
+          return <Datepicker {...props} showAdditionalInput={showAdditionalInput} />;
         default:
           console.log("Error: Invalid question type"); // Debugging log
           return <Text>Error: Invalid question type</Text>;
