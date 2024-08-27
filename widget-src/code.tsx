@@ -16,6 +16,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [contentType, setContentType] = useSyncedState("contentType", "answer");
   const [questionType, setQuestionType] = useSyncedState("questionType", "radio");
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", true);
+  const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
 
   usePropertyMenu(
     [
@@ -79,6 +80,16 @@ function Widget(props: Partial<AutoLayoutProps>) {
 <path d='M64 184C72.8366 184 80 176.837 80 168C80 159.163 72.8366 152 64 152C55.1634 152 48 159.163 48 168C48 176.837 55.1634 184 64 184Z' fill='white'/>
 </svg>`
       },
+      ...(contentType === "question" && questionType === "custom" ? [{
+        itemType: "toggle",
+        propertyName: "toggleLinkEdit",
+        tooltip: isLinkEditable ? "Save link" : "Edit link",
+        isToggled: isLinkEditable,
+        icon: `<svg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
+          <path d='M1.5 8.5V10.5H3.5L9.08579 4.91421L7.08579 2.91421L1.5 8.5Z' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
+          <path d='M6 4L8 6' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
+        </svg>`
+      }] : []),
     ],
     ({ propertyName, propertyValue }) => {
       if (propertyName === "contentType") {
@@ -118,6 +129,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         }
       } else if (propertyName === "toggleAdditionalInput") {
         setShowAdditionalInput(!showAdditionalInput);
+      } else if (propertyName === "toggleLinkEdit") {
+        setIsLinkEditable(!isLinkEditable);
       }
     }
   );
@@ -147,7 +160,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         case "slider":
           return <Slider {...props} showAdditionalInput={showAdditionalInput} />;
         case "custom":
-          return <Custom {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
         default:
           console.log("Error: Invalid question type"); // Debugging log
           return <Text>Error: Invalid question type</Text>;

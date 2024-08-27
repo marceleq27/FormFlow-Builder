@@ -1,9 +1,10 @@
 const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
-function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean }) {
+function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean, isLinkEditable: boolean }) {
     const [radioText, setRadioText] = useSyncedState("radioText", "");
     const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
     const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
+    const [linkText, setLinkText] = useSyncedState("linkText", "Link");
 
     console.log("Rendering Custom component with props:", props);
 
@@ -221,18 +222,30 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                                     `}
                                 />
                             </Frame>
-                            <Text
-                                name="link-text"
-                                fill="#2563EB"
-                                lineHeight="150%"
-                                fontFamily="Inter"
-                                fontSize={12}
-                                letterSpacing={-0.132}
-                                fontWeight={500}
-                                href="https://x.com/ricoberan"
-                            >
-                                Link
-                            </Text>
+                            {props.isLinkEditable ? (
+                                <Input
+                                    name="link-input"
+                                    value={linkText}
+                                    onTextEditEnd={(e) => setLinkText(e.characters)}
+                                    fill="#2563EB"
+                                    fontFamily="Inter"
+                                    fontSize={12}
+                                    fontWeight={500}
+                                />
+                            ) : (
+                                <Text
+                                    name="link-text"
+                                    fill="#2563EB"
+                                    lineHeight="150%"
+                                    fontFamily="Inter"
+                                    fontSize={12}
+                                    letterSpacing={-0.132}
+                                    fontWeight={500}
+                                    href="https://x.com/ricoberan"
+                                >
+                                    {linkText}
+                                </Text>
+                            )}
                         </AutoLayout>
                     </AutoLayout>
                 </AutoLayout>
