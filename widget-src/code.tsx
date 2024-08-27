@@ -5,6 +5,9 @@ import Input from './components/Input';
 import Dropdown from './components/Dropdown';
 import Checkbox from './components/Checkbox';
 import Datepicker from './components/Datepicker';
+import Signature from './components/Signature';
+import Slider from './components/Slider';
+import Custom from './components/Custom';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -37,6 +40,9 @@ function Widget(props: Partial<AutoLayoutProps>) {
           { option: "dropdown", label: "Dropdown" },
           { option: "checkbox", label: "Checkbox" },
           { option: "datepicker", label: "Datepicker" },
+          { option: "signature", label: "Signature" },
+          { option: "slider", label: "Slider" },
+          { option: "custom", label: "Custom" },
         ],
         selectedOption: questionType,
       }] : []),
@@ -136,6 +142,12 @@ function Widget(props: Partial<AutoLayoutProps>) {
           return <Checkbox {...props} showAdditionalInput={showAdditionalInput} />;
         case "datepicker":
           return <Datepicker {...props} showAdditionalInput={showAdditionalInput} />;
+        case "signature":
+          return <Signature {...props} showAdditionalInput={showAdditionalInput} />;
+        case "slider":
+          return <Slider {...props} showAdditionalInput={showAdditionalInput} />;
+        case "custom":
+          return <Custom {...props} showAdditionalInput={showAdditionalInput} />;
         default:
           console.log("Error: Invalid question type"); // Debugging log
           return <Text>Error: Invalid question type</Text>;
