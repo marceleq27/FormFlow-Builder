@@ -51,7 +51,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         {
           itemType: "toggle",
           propertyName: "toggleAdditionalInput",
-          tooltip: "Show/Hide Additional",
+          tooltip: showAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showAdditionalInput,
           icon: `<svg width='16' height='13' viewBox='0 -1 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
           <path fill-rule='evenodd' clip-rule='evenodd' d='M5.0625 4C5.0625 3.68934 5.31434 3.4375 5.625 3.4375H10.125C10.4357 3.4375 10.6875 3.68934 10.6875 4C10.6875 4.31066 10.4357 4.5625 10.125 4.5625H5.625C5.31434 4.5625 5.0625 4.31066 5.0625 4Z' fill='white'/>
