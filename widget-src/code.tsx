@@ -54,9 +54,11 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "toggleAdditionalInput",
           tooltip: showAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showAdditionalInput,
-          icon: `<svg width='16' height='16' viewBox='-0.5 -1 18 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
-<path d='M8 0.85714C2.28571 0.85714 0 6 0 6C0 6 2.28571 11.1429 8 11.1429C13.7143 11.1429 16 6 16 6C16 6 13.7143 0.85714 8 0.85714Z' stroke='white' stroke-width='1.14286' stroke-linecap='round' stroke-linejoin='round'/>
-<path d='M8 8.85714C9.57796 8.85714 10.8571 7.57795 10.8571 6C10.8571 4.42204 9.57796 3.14285 8 3.14285C6.42204 3.14285 5.14286 4.42204 5.14286 6C5.14286 7.57795 6.42204 8.85714 8 8.85714Z' stroke='white' stroke-width='1.14286' stroke-linecap='round' stroke-linejoin='round'/>
+          icon: `<svg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M7 5C7 4.72386 7.22386 4.5 7.5 4.5H13.5C13.7761 4.5 14 4.72386 14 5C14 5.27614 13.7761 5.5 13.5 5.5H7.5C7.22386 5.5 7 5.27614 7 5Z' fill='white'/>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M9 1C9 0.723858 9.22386 0.5 9.5 0.5L13.5 0.5C13.7761 0.5 14 0.723858 14 1C14 1.27614 13.7761 1.5 13.5 1.5L9.5 1.5C9.22386 1.5 9 1.27614 9 1Z' fill='white'/>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M2 9C2 8.72386 2.22386 8.5 2.5 8.5H13.5C13.7761 8.5 14 8.72386 14 9C14 9.27614 13.7761 9.5 13.5 9.5H2.5C2.22386 9.5 2 9.27614 2 9Z' fill='white'/>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M6.60355 1.39645C6.79882 1.59171 6.79882 1.90829 6.60355 2.10355L4.10355 4.60355C3.90829 4.79882 3.59171 4.79882 3.39645 4.60355L0.896447 2.10355C0.701184 1.90829 0.701184 1.59171 0.896447 1.39645C1.09171 1.20118 1.40829 1.20118 1.60355 1.39645L3.75 3.54289L5.89645 1.39645C6.09171 1.20118 6.40829 1.20118 6.60355 1.39645Z' fill='white'/>
 </svg>`
         },
         ...(questionType === "custom" ? [{
@@ -75,10 +77,12 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "toggleHeaderAdditionalInput",
           tooltip: showHeaderAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showHeaderAdditionalInput,
-          icon: `<svg width='16' height='16' viewBox='-0.5 -1 18 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path d='M8 0.85714C2.28571 0.85714 0 6 0 6C0 6 2.28571 11.1429 8 11.1429C13.7143 11.1429 16 6 16 6C16 6 13.7143 0.85714 8 0.85714Z' stroke='white' stroke-width='1.14286' stroke-linecap='round' stroke-linejoin='round'/>
-            <path d='M8 8.85714C9.57796 8.85714 10.8571 7.57795 10.8571 6C10.8571 4.42204 9.57796 3.14285 8 3.14285C6.42204 3.14285 5.14286 4.42204 5.14286 6C5.14286 7.57795 6.42204 8.85714 8 8.85714Z' stroke='white' stroke-width='1.14286' stroke-linecap='round' stroke-linejoin='round'/>
-          </svg>`
+          icon: `<svg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M7 5C7 4.72386 7.22386 4.5 7.5 4.5H13.5C13.7761 4.5 14 4.72386 14 5C14 5.27614 13.7761 5.5 13.5 5.5H7.5C7.22386 5.5 7 5.27614 7 5Z' fill='white'/>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M9 1C9 0.723858 9.22386 0.5 9.5 0.5L13.5 0.5C13.7761 0.5 14 0.723858 14 1C14 1.27614 13.7761 1.5 13.5 1.5L9.5 1.5C9.22386 1.5 9 1.27614 9 1Z' fill='white'/>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M2 9C2 8.72386 2.22386 8.5 2.5 8.5H13.5C13.7761 8.5 14 8.72386 14 9C14 9.27614 13.7761 9.5 13.5 9.5H2.5C2.22386 9.5 2 9.27614 2 9Z' fill='white'/>
+<path fill-rule='evenodd' clip-rule='evenodd' d='M6.60355 1.39645C6.79882 1.59171 6.79882 1.90829 6.60355 2.10355L4.10355 4.60355C3.90829 4.79882 3.59171 4.79882 3.39645 4.60355L0.896447 2.10355C0.701184 1.90829 0.701184 1.59171 0.896447 1.39645C1.09171 1.20118 1.40829 1.20118 1.60355 1.39645L3.75 3.54289L5.89645 1.39645C6.09171 1.20118 6.40829 1.20118 6.60355 1.39645Z' fill='white'/>
+</svg>`
         }
       ] : []),
       {
