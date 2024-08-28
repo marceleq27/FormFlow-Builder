@@ -211,16 +211,17 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                             name="link-badge"
                             fill="#DBEAFE"
                             cornerRadius={5}
-                            overflow="visible"
+                            overflow="hidden"
                             spacing={3}
                             padding={{
                                 vertical: 2,
                                 horizontal: 4,
                             }}
-                            horizontalAlignItems="center"
+                            horizontalAlignItems="start"
                             verticalAlignItems="center"
                             height="fill-parent"
                             minWidth={22}
+                            maxWidth={100}
                         >
                             <AutoLayout
                                 name="LinkIcon"
@@ -248,7 +249,9 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                                     fontFamily="Inter"
                                     fontSize={12}
                                     fontWeight={500}
-                                    placeholder="Type or paste URL"
+                                    placeholder="Enter URL"
+                                    inputBehavior="truncate"
+                                    width="fill-parent"
                                 />
                             ) : linkText ? (
                                 <Text
@@ -260,6 +263,8 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                                     letterSpacing={-0.132}
                                     fontWeight={500}
                                     onClick={handleLinkClick}
+                                    width="fill-parent"
+                                    truncate={1}
                                 >
                                     {linkText}
                                 </Text>
