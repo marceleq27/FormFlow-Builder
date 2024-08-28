@@ -172,8 +172,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <Text>Error: Invalid content type</Text>;
     }
   } catch (error) {
-    console.log("Error rendering component:", error);
-    return <Text>Error rendering component</Text>;
+    console.error("Error rendering component:", error); // Changed to console.error for more details
+    return <Text>Error rendering component: {error.message}</Text>; // Display error message
   }
 }
 
