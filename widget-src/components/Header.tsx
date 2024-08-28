@@ -23,7 +23,7 @@ function Header(props: Partial<AutoLayoutProps>) {
             >
                 <AutoLayout
                     name="number"
-                    fill="#E0E7FF"
+                    fill="#7C3AED"
                     height={29}
                     cornerRadius={{
                         topLeft: 8,
@@ -43,9 +43,9 @@ function Header(props: Partial<AutoLayoutProps>) {
                     <Input
                         name="numberInput"
                         value={numberInputText}
-                        placeholder="1.1"
+                        placeholder="1"
                         onTextEditEnd={(event) => setNumberInputText(event.characters)}
-                        fill="#393A78"
+                        fill="#FFFFFF"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={14}
@@ -57,7 +57,7 @@ function Header(props: Partial<AutoLayoutProps>) {
                 </AutoLayout>
                 <AutoLayout
                     name="label"
-                    fill="#E0E7FF"
+                    fill="#7C3AED"
                     cornerRadius={{
                         topLeft: 8,
                         topRight: 8,
@@ -75,7 +75,7 @@ function Header(props: Partial<AutoLayoutProps>) {
                 >
                     <Text
                         name="HeaderLabel"
-                        fill="#393A78"
+                        fill="#FFFFFF"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={14}
