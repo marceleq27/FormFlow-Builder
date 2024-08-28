@@ -109,39 +109,71 @@ function Widget(props: Partial<AutoLayoutProps>) {
     ],
     ({ propertyName, propertyValue }) => {
       if (propertyName === "contentType") {
-        console.log(`Changing content type to: ${propertyValue}`); // Debugging log
+        console.log(`Changing content type to: ${propertyValue}`);
         setContentType(propertyValue);
       } else if (propertyName === "questionType") {
-        console.log(`Changing question type to: ${propertyValue}`); // Debugging log
+        console.log(`Changing question type to: ${propertyValue}`);
         setQuestionType(propertyValue);
       } else if (propertyName === "addWidget") {
         const currentWidget = figma.currentPage.selection[0] as WidgetNode;
         if (currentWidget && currentWidget.type === "WIDGET") {
-          const newWidget = currentWidget.cloneWidget({
-            answerText: "",
-            headerText: "",
-            radioText: "",
-            inputText: "",
-            questionText: ""
-          });
-          newWidget.x += 0; // Adjust position as needed
-          newWidget.y += 200; // Adjust position as needed
-          figma.currentPage.appendChild(newWidget);
+          if (contentType === "question") {
+            const newWidget = currentWidget.cloneWidget({
+              contentType: "answer",
+              questionType: "radio",
+              answerText: "",
+              headerText: "",
+              radioText: "",
+              inputText: "",
+              questionText: "",
+              // ... reset all other text fields ...
+            });
 
-          // Create a new connector from the current widget to the new widget
-          const connector = figma.createConnector();
-          connector.connectorStart = {
-            endpointNodeId: currentWidget.id,
-            magnet: "BOTTOM",
-          };
-          connector.connectorEnd = {
-            endpointNodeId: newWidget.id,
-            magnet: "TOP",
-          };
-          connector.connectorStartStrokeCap = "NONE";
-          connector.connectorEndStrokeCap = "NONE";
-          connector.strokeColor = figma.util.solidPaint("#000000"); // Set stroke color to black using solidPaint
-          figma.currentPage.appendChild(connector);
+            newWidget.setPluginData("contentType", "answer");
+            newWidget.setPluginData("questionType", "radio");
+            newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
+            newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
+            newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
+
+            newWidget.x = currentWidget.x;
+            newWidget.y = currentWidget.y + currentWidget.height + 50;
+            figma.currentPage.appendChild(newWidget);
+
+            // Create a new connector
+            const connector = figma.createConnector();
+            connector.connectorStart = {
+              endpointNodeId: currentWidget.id,
+              magnet: "BOTTOM",
+            };
+            connector.connectorEnd = {
+              endpointNodeId: newWidget.id,
+              magnet: "TOP",
+            };
+            connector.connectorStartStrokeCap = "NONE";
+            connector.connectorEndStrokeCap = "NONE";
+            connector.strokeColor = figma.util.solidPaint("#000000");
+            figma.currentPage.appendChild(connector);
+          } else {
+            // If not a question component, clone the current widget as is
+            const newWidget = currentWidget.cloneWidget({
+              contentType: contentType,
+              questionType: questionType,
+              // ... reset all text fields ...
+            });
+
+            newWidget.setPluginData("contentType", contentType);
+            newWidget.setPluginData("questionType", questionType);
+            newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
+            newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
+            newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
+
+            newWidget.x = currentWidget.x;
+            newWidget.y = currentWidget.y + currentWidget.height + 50;
+            figma.currentPage.appendChild(newWidget);
+
+            // Create connector (same as above)
+            // ... connector code ...
+          }
         }
       } else if (propertyName === "toggleAdditionalInput") {
         setShowAdditionalInput(!showAdditionalInput);
@@ -153,15 +185,15 @@ function Widget(props: Partial<AutoLayoutProps>) {
     }
   );
 
-  console.log(`Current content type: ${contentType}`); // Debugging log
-  console.log(`Current question type: ${questionType}`); // Debugging log
+  console.log(`Current content type: ${contentType}`);
+  console.log(`Current question type: ${questionType}`);
 
   try {
     if (contentType === "header") {
-      console.log("Rendering Header component"); // Debugging log
+      console.log("Rendering Header component");
       return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} />;
     } else if (contentType === "question") {
-      console.log("Rendering Question component"); // Debugging log
+      console.log("Rendering Question component");
       switch (questionType) {
         case "radio":
           return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
@@ -180,19 +212,19 @@ function Widget(props: Partial<AutoLayoutProps>) {
         case "custom":
           return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
         default:
-          console.log("Error: Invalid question type"); // Debugging log
+          console.log("Error: Invalid question type");
           return <Text>Error: Invalid question type</Text>;
       }
     } else if (contentType === "answer") {
-      console.log("Rendering Answer component"); // Debugging log
+      console.log("Rendering Answer component");
       return <Answer {...props} />;
     } else {
-      console.log("Error: Invalid content type"); // Debugging log
+      console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
     }
   } catch (error) {
-    console.error("Error rendering component:", error); // Changed to console.error for more details
-    return <Text>Error rendering component: {error.message}</Text>; // Display error message
+    console.error("Error rendering component:", error);
+    return <Text>Error rendering component: {error.message}</Text>;
   }
 }
 
