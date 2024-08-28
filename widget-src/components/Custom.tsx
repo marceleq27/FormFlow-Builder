@@ -8,6 +8,13 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
 
     console.log("Rendering Custom component with props:", props);
 
+    const handleLinkClick = () => {
+        if (linkText) {
+            figma.notify(`Opening link: ${linkText}`);
+            figma.openExternal(linkText);
+        }
+    };
+
     return (
         <AutoLayout
             name="Question"
@@ -243,9 +250,9 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                                     fontSize={12}
                                     letterSpacing={-0.132}
                                     fontWeight={500}
-                                    href="https://x.com/ricoberan"
+                                    onClick={handleLinkClick}
                                 >
-                                    {linkText}
+                                    {linkText || "Add link"}
                                 </Text>
                             )}
                         </AutoLayout>
