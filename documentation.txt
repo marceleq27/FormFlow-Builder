@@ -1,3 +1,4 @@
 https://www.figma.com/plugin-docs/api/WidgetNode/
 https://www.figma.com/plugin-docs/api/ConnectorNode/
 https://www.figma.com/widget-docs/api/api-reference/
+https://www.figma.com/plugin-docs/api/properties/nodes-layoutpositioning/
