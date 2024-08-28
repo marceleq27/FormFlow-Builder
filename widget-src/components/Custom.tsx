@@ -10,8 +10,12 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
 
     const handleLinkClick = () => {
         if (linkText) {
-            figma.notify(`Opening link: ${linkText}`);
-            figma.openExternal(linkText);
+            let url = linkText.trim();
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            figma.notify(`Opening link: ${url}`);
+            figma.openExternal(url);
         }
     };
 
