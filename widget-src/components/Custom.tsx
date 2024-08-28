@@ -248,6 +248,7 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                                     fontFamily="Inter"
                                     fontSize={12}
                                     fontWeight={500}
+                                    placeholder="Type or paste URL"
                                 />
                             ) : linkText ? (
                                 <Text
