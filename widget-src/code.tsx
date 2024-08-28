@@ -153,8 +153,37 @@ function Widget(props: Partial<AutoLayoutProps>) {
             connector.connectorEndStrokeCap = "NONE";
             connector.strokeColor = figma.util.solidPaint("#000000");
             figma.currentPage.appendChild(connector);
+          } else if (contentType === "answer") {
+            const newWidget = currentWidget.cloneWidget({
+              contentType: "answer",
+              answerText: "",
+              // ... reset other relevant properties ...
+            });
+
+            newWidget.setPluginData("contentType", "answer");
+            // ... set other plugin data ...
+
+            // Position the new widget to the right of the current widget
+            newWidget.x = currentWidget.x + currentWidget.width + 50;
+            newWidget.y = currentWidget.y;
+            figma.currentPage.appendChild(newWidget);
+
+            // Create a new connector
+            const connector = figma.createConnector();
+            connector.connectorStart = {
+              endpointNodeId: currentWidget.id,
+              magnet: "RIGHT",
+            };
+            connector.connectorEnd = {
+              endpointNodeId: newWidget.id,
+              magnet: "LEFT",
+            };
+            connector.connectorStartStrokeCap = "NONE";
+            connector.connectorEndStrokeCap = "NONE";
+            connector.strokeColor = figma.util.solidPaint("#000000");
+            figma.currentPage.appendChild(connector);
           } else {
-            // If not a question component, clone the current widget as is
+            // If not a question or answer component, clone the current widget as is
             const newWidget = currentWidget.cloneWidget({
               contentType: contentType,
               questionType: questionType,
