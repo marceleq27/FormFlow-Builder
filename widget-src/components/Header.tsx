@@ -1,6 +1,6 @@
 const { useSyncedState, AutoLayout, Input, Text } = figma.widget;
 
-function Header(props: Partial<AutoLayoutProps>) {
+function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean }) {
     const [headerText, setHeaderText] = useSyncedState("headerText", "");
     const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
     const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
