@@ -8,6 +8,10 @@ import Datepicker from './components/Datepicker';
 import Signature from './components/Signature';
 import Slider from './components/Slider';
 import Custom from './components/Custom';
+import Fileupload from './components/Fileupload';
+import Currency from './components/Currency';
+import PercentageInput from './components/PercentageInput';
+import TextArea from './components/TextArea';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -45,6 +49,10 @@ function Widget(props: Partial<AutoLayoutProps>) {
             { option: "signature", label: "Signature" },
             { option: "slider", label: "Slider" },
             { option: "custom", label: "Custom" },
+            { option: "fileupload", label: "File Upload" },
+            { option: "currency", label: "Currency" },
+            { option: "percentageinput", label: "Percentage Input" },
+            { option: "textarea", label: "Text Area" },
           ],
           selectedOption: answerType,
         },
@@ -246,6 +254,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
           return <Slider {...props} showAdditionalInput={showAdditionalInput} />;
         case "custom":
           return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
+        case "fileupload":
+          return <Fileupload {...props} showAdditionalInput={showAdditionalInput} />;
+        case "currency":
+          return <Currency {...props} showAdditionalInput={showAdditionalInput} />;
+        case "percentageinput":
+          return <PercentageInput {...props} showAdditionalInput={showAdditionalInput} />;
+        case "textarea":
+          return <TextArea {...props} showAdditionalInput={showAdditionalInput} />;
         default:
           console.log("Error: Invalid answer type");
           return <Text>Error: Invalid answer type</Text>;
