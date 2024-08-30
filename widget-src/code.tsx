@@ -18,9 +18,9 @@ const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
 function Widget(props: Partial<AutoLayoutProps>) {
   const [contentType, setContentType] = useSyncedState("contentType", "answer");
   const [answerType, setAnswerType] = useSyncedState("answerType", "radio");
-  const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", true);
+  const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", false);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
-  const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", true);
+  const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", false);
 
   usePropertyMenu(
     [
