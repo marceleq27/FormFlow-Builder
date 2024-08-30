@@ -2,7 +2,6 @@ const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
 function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean, isLinkEditable: boolean }) {
     const [radioText, setRadioText] = useSyncedState("radioText", "");
-    const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
     const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
     const [linkText, setLinkText] = useSyncedState("linkText", "");
 
@@ -31,43 +30,9 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                 name="badge-container"
                 overflow="visible"
                 spacing={10}
-                width={77}
-                horizontalAlignItems="end"
+                width="hug-contents"
+                horizontalAlignItems="center"
             >
-                <AutoLayout
-                    name="number"
-                    fill="#E0E7FF"
-                    height={29}
-                    cornerRadius={{
-                        topLeft: 8,
-                        topRight: 8,
-                        bottomRight: 0,
-                        bottomLeft: 0,
-                    }}
-                    overflow="visible"
-                    spacing={6}
-                    padding={{
-                        vertical: 4,
-                        horizontal: 8,
-                    }}
-                    horizontalAlignItems="center"
-                    verticalAlignItems="center"
-                >
-                    <Input
-                        name="numberInput"
-                        value={numberInputText}
-                        placeholder="1.1"
-                        onTextEditEnd={(event) => setNumberInputText(event.characters)}
-                        fill="#393A78"
-                        lineHeight="150%"
-                        fontFamily="Inter"
-                        fontSize={14}
-                        letterSpacing={-0.154}
-                        fontWeight={600}
-                        width={32}
-                        horizontalAlignText="center"
-                    />
-                </AutoLayout>
                 <AutoLayout
                     name="label"
                     fill="#D0FAE5"
@@ -134,9 +99,9 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                     width="fill-parent"
                 >
                     <Input
-                        name="Input"
+                        name="custom"
                         value={radioText}
-                        placeholder="Question..."
+                        placeholder="Answer..."
                         onTextEditEnd={(event) => setRadioText(event.characters)}
                         fill="#1E1E1E"
                         width={306}
