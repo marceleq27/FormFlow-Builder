@@ -21,10 +21,10 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
 
     return (
         <AutoLayout
-            name="Question"
+            name="Answer"
             overflow="visible"
             direction="vertical"
-            width={370}
+            width={200}
             horizontalAlignItems="center"
         >
             <AutoLayout
@@ -70,7 +70,7 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                 </AutoLayout>
                 <AutoLayout
                     name="label"
-                    fill="#E0E7FF"
+                    fill="#D0FAE5"
                     cornerRadius={{
                         topLeft: 8,
                         topRight: 8,
@@ -87,8 +87,8 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                     verticalAlignItems="center"
                 >
                     <Text
-                        name="Question"
-                        fill="#393A78"
+                        name="Answer"
+                        fill="#1E5C49"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={14}
@@ -97,7 +97,7 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                         }
                         fontWeight={600}
                     >
-                        Question
+                        Answer
                     </Text>
                 </AutoLayout>
             </AutoLayout>
@@ -118,7 +118,7 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                 fill="#FFF"
                 cornerRadius={12}
                 direction="vertical"
-                width={372}
+                width="fill-parent"
             >
                 <AutoLayout
                     name="question"
