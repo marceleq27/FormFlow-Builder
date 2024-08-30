@@ -21,6 +21,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", false);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
   const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", false);
+  const [currency, setCurrency] = useSyncedState("currency", "GBP"); // Add this line
 
   usePropertyMenu(
     [
@@ -54,6 +55,24 @@ function Widget(props: Partial<AutoLayoutProps>) {
           ],
           selectedOption: answerType,
         },
+        ...(answerType === "currency" ? [{
+          itemType: "dropdown",
+          propertyName: "currency",
+          tooltip: "Select Currency",
+          options: [
+            { option: "USD", label: "USD" },
+            { option: "EUR", label: "EUR" },
+            { option: "GBP", label: "GBP" },
+            { option: "JPY", label: "JPY" },
+            { option: "CAD", label: "CAD" },
+            { option: "AUD", label: "AUD" },
+            { option: "CHF", label: "CHF" },
+            { option: "CNY", label: "CNY" },
+            { option: "INR", label: "INR" },
+            { option: "MXN", label: "MXN" },
+          ],
+          selectedOption: currency,
+        }] : []),
         {
           itemType: "toggle",
           propertyName: "toggleAdditionalInput",
@@ -220,6 +239,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         setIsLinkEditable(!isLinkEditable);
       } else if (propertyName === "toggleHeaderAdditionalInput") {
         setShowHeaderAdditionalInput(!showHeaderAdditionalInput);
+      } else if (propertyName === "currency") {
+        setCurrency(propertyValue);
       }
     }
   );
@@ -245,7 +266,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         case "textarea":
           return <TextArea {...props} showAdditionalInput={showAdditionalInput} />;
         case "currency":
-          return <Currency {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Currency {...props} showAdditionalInput={showAdditionalInput} currency={currency} />;
         case "percentageinput":
           return <PercentageInput {...props} showAdditionalInput={showAdditionalInput} />;
         case "datepicker":
