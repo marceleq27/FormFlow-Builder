@@ -1,4 +1,4 @@
-import AnswerTemplate from './AnswerTemplate';
+import AnswerTemplate from '../AnswerTemplate';
 
 const { useSyncedState } = figma.widget;
 
