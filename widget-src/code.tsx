@@ -1,17 +1,16 @@
 import Header from './components/Header';
 import AnswerTemplate from './components/AnswerTemplate';
-import Radio from './components/answertype/Radio';
 import Input from './components/answertype/Input';
+import Radio from './components/answertype/Radio';
 import Dropdown from './components/answertype/Dropdown';
 import Checkbox from './components/answertype/Checkbox';
-import Datepicker from './components/answertype/Datepicker';
-import Signature from './components/answertype/Signature';
-import Slider from './components/answertype/Slider';
-import Custom from './components/answertype/Custom';
-import Fileupload from './components/answertype/Fileupload';
+import TextArea from './components/answertype/TextArea';
 import Currency from './components/answertype/Currency';
 import PercentageInput from './components/answertype/PercentageInput';
-import TextArea from './components/answertype/TextArea';
+import Datepicker from './components/answertype/Datepicker';
+import Fileupload from './components/answertype/Fileupload';
+import Slider from './components/answertype/Slider';
+import Custom from './components/answertype/Custom';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -41,18 +40,17 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "answerType",
           tooltip: "Select Answer Type",
           options: [
-            { option: "radio", label: "Radio" },
             { option: "input", label: "Input" },
+            { option: "radio", label: "Radio" },
             { option: "dropdown", label: "Dropdown" },
             { option: "checkbox", label: "Checkbox" },
-            { option: "datepicker", label: "Datepicker" },
-            { option: "signature", label: "Signature" },
-            { option: "slider", label: "Slider" },
-            { option: "custom", label: "Custom" },
-            { option: "fileupload", label: "File Upload" },
+            { option: "textarea", label: "Text Area" },
             { option: "currency", label: "Currency" },
             { option: "percentageinput", label: "Percentage Input" },
-            { option: "textarea", label: "Text Area" },
+            { option: "datepicker", label: "Datepicker" },
+            { option: "fileupload", label: "File Upload" },
+            { option: "slider", label: "Slider" },
+            { option: "custom", label: "Custom" },
           ],
           selectedOption: answerType,
         },
@@ -132,7 +130,6 @@ function Widget(props: Partial<AutoLayoutProps>) {
               headerText: "",
               radioText: "",
               inputText: "",
-              answerText: "",
               // ... reset all other text fields ...
             });
 
@@ -168,7 +165,6 @@ function Widget(props: Partial<AutoLayoutProps>) {
               headerText: "",
               radioText: "",
               inputText: "",
-              answerText: "",
               // ... reset all other text fields ...
             });
 
@@ -238,30 +234,28 @@ function Widget(props: Partial<AutoLayoutProps>) {
     } else if (contentType === "answer") {
       console.log("Rendering Answer component");
       switch (answerType) {
-        case "radio":
-          return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
         case "input":
           return <Input {...props} showAdditionalInput={showAdditionalInput} />;
+        case "radio":
+          return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
         case "dropdown":
           return <Dropdown {...props} showAdditionalInput={showAdditionalInput} />;
         case "checkbox":
           return <Checkbox {...props} showAdditionalInput={showAdditionalInput} />;
-        case "datepicker":
-          return <Datepicker {...props} showAdditionalInput={showAdditionalInput} />;
-        case "signature":
-          return <Signature {...props} showAdditionalInput={showAdditionalInput} />;
-        case "slider":
-          return <Slider {...props} showAdditionalInput={showAdditionalInput} />;
-        case "custom":
-          return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
-        case "fileupload":
-          return <Fileupload {...props} showAdditionalInput={showAdditionalInput} />;
+        case "textarea":
+          return <TextArea {...props} showAdditionalInput={showAdditionalInput} />;
         case "currency":
           return <Currency {...props} showAdditionalInput={showAdditionalInput} />;
         case "percentageinput":
           return <PercentageInput {...props} showAdditionalInput={showAdditionalInput} />;
-        case "textarea":
-          return <TextArea {...props} showAdditionalInput={showAdditionalInput} />;
+        case "datepicker":
+          return <Datepicker {...props} showAdditionalInput={showAdditionalInput} />;
+        case "fileupload":
+          return <Fileupload {...props} showAdditionalInput={showAdditionalInput} />;
+        case "slider":
+          return <Slider {...props} showAdditionalInput={showAdditionalInput} />;
+        case "custom":
+          return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
         default:
           console.log("Error: Invalid answer type");
           return <Text>Error: Invalid answer type</Text>;
