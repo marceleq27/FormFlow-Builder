@@ -1,4 +1,3 @@
-import Answer from './components/Answer';
 import Header from './components/Header';
 import Radio from './components/Radio';
 import Input from './components/Input';
@@ -13,7 +12,7 @@ const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
 
 function Widget(props: Partial<AutoLayoutProps>) {
-  const [contentType, setContentType] = useSyncedState("contentType", "answer");
+  const [contentType, setContentType] = useSyncedState("contentType", "question");
   const [questionType, setQuestionType] = useSyncedState("questionType", "radio");
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", true);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
@@ -28,7 +27,6 @@ function Widget(props: Partial<AutoLayoutProps>) {
         options: [
           { option: "header", label: "Header" },
           { option: "question", label: "Question" },
-          { option: "answer", label: "Answer" },
         ],
         selectedOption: contentType,
       },
@@ -119,7 +117,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         if (currentWidget && currentWidget.type === "WIDGET") {
           if (contentType === "question") {
             const newWidget = currentWidget.cloneWidget({
-              contentType: "answer",
+              contentType: "question",
               questionType: "radio",
               answerText: "",
               headerText: "",
@@ -129,7 +127,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
               // ... reset all other text fields ...
             });
 
-            newWidget.setPluginData("contentType", "answer");
+            newWidget.setPluginData("contentType", "question");
             newWidget.setPluginData("questionType", "radio");
             newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
             newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
@@ -148,35 +146,6 @@ function Widget(props: Partial<AutoLayoutProps>) {
             connector.connectorEnd = {
               endpointNodeId: newWidget.id,
               magnet: "TOP",
-            };
-            connector.connectorStartStrokeCap = "NONE";
-            connector.connectorEndStrokeCap = "NONE";
-            connector.strokeColor = figma.util.solidPaint("#000000");
-            figma.currentPage.appendChild(connector);
-          } else if (contentType === "answer") {
-            const newWidget = currentWidget.cloneWidget({
-              contentType: "answer",
-              answerText: "",
-              // ... reset other relevant properties ...
-            });
-
-            newWidget.setPluginData("contentType", "answer");
-            // ... set other plugin data ...
-
-            // Position the new widget to the right of the current widget
-            newWidget.x = currentWidget.x + currentWidget.width + 50;
-            newWidget.y = currentWidget.y;
-            figma.currentPage.appendChild(newWidget);
-
-            // Create a new connector
-            const connector = figma.createConnector();
-            connector.connectorStart = {
-              endpointNodeId: currentWidget.id,
-              magnet: "RIGHT",
-            };
-            connector.connectorEnd = {
-              endpointNodeId: newWidget.id,
-              magnet: "LEFT",
             };
             connector.connectorStartStrokeCap = "NONE";
             connector.connectorEndStrokeCap = "NONE";
@@ -219,7 +188,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
             connector.strokeColor = figma.util.solidPaint("#000000");
             figma.currentPage.appendChild(connector);
           } else {
-            // If not a question, answer, or header component, clone the current widget as is
+            // If not a question or header component, clone the current widget as is
             const newWidget = currentWidget.cloneWidget({
               contentType: contentType,
               questionType: questionType,
@@ -280,9 +249,6 @@ function Widget(props: Partial<AutoLayoutProps>) {
           console.log("Error: Invalid question type");
           return <Text>Error: Invalid question type</Text>;
       }
-    } else if (contentType === "answer") {
-      console.log("Rendering Answer component");
-      return <Answer {...props} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
