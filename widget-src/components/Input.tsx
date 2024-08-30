@@ -1,4 +1,4 @@
-import QuestionTemplate from './QuestionTemplate';
+import AnswerTemplate from './AnswerTemplate';
 
 const { useSyncedState } = figma.widget;
 
@@ -10,9 +10,9 @@ function Input(props: Partial<AutoLayoutProps>) {
     const [showAdditionalInput] = useSyncedState("showAdditionalInput", true);
 
     return (
-        <QuestionTemplate
+        <AnswerTemplate
             {...props}
-            questionType="Input"
+            answerType="Input"
             iconSvg={inputIconSvg}
             showAdditionalInput={showAdditionalInput}
         />

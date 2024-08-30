@@ -1,4 +1,4 @@
-import QuestionTemplate from './QuestionTemplate';
+import AnswerTemplate from './AnswerTemplate';
 
 const dropdownIconSvg = `<svg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
 <g clip-path='url(#clip0_9071_747)'>
@@ -13,9 +13,9 @@ const dropdownIconSvg = `<svg width='12' height='12' viewBox='0 0 12 12' fill='n
 
 function Dropdown(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean }) {
     return (
-        <QuestionTemplate
+        <AnswerTemplate
             {...props}
-            questionType="Dropdown"
+            answerType="Dropdown"
             iconSvg={dropdownIconSvg}
         />
     );

@@ -1,4 +1,5 @@
 import Header from './components/Header';
+import AnswerTemplate from './components/AnswerTemplate';
 import Radio from './components/Radio';
 import Input from './components/Input';
 import Dropdown from './components/Dropdown';
@@ -12,8 +13,8 @@ const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
 
 function Widget(props: Partial<AutoLayoutProps>) {
-  const [contentType, setContentType] = useSyncedState("contentType", "question");
-  const [questionType, setQuestionType] = useSyncedState("questionType", "radio");
+  const [contentType, setContentType] = useSyncedState("contentType", "answer");
+  const [answerType, setAnswerType] = useSyncedState("answerType", "radio");
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", true);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
   const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", true);
@@ -26,15 +27,15 @@ function Widget(props: Partial<AutoLayoutProps>) {
         tooltip: "Select Content Type",
         options: [
           { option: "header", label: "Header" },
-          { option: "question", label: "Question" },
+          { option: "answer", label: "Answer" },
         ],
         selectedOption: contentType,
       },
-      ...(contentType === "question" ? [
+      ...(contentType === "answer" ? [
         {
           itemType: "dropdown",
-          propertyName: "questionType",
-          tooltip: "Select Question Type",
+          propertyName: "answerType",
+          tooltip: "Select Answer Type",
           options: [
             { option: "radio", label: "Radio" },
             { option: "input", label: "Input" },
@@ -45,7 +46,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
             { option: "slider", label: "Slider" },
             { option: "custom", label: "Custom" },
           ],
-          selectedOption: questionType,
+          selectedOption: answerType,
         },
         {
           itemType: "toggle",
@@ -59,7 +60,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
 <path fill-rule='evenodd' clip-rule='evenodd' d='M6.60355 1.39645C6.79882 1.59171 6.79882 1.90829 6.60355 2.10355L4.10355 4.60355C3.90829 4.79882 3.59171 4.79882 3.39645 4.60355L0.896447 2.10355C0.701184 1.90829 0.701184 1.59171 0.896447 1.39645C1.09171 1.20118 1.40829 1.20118 1.60355 1.39645L3.75 3.54289L5.89645 1.39645C6.09171 1.20118 6.40829 1.20118 6.60355 1.39645Z' fill='white'/>
 </svg>`
         },
-        ...(questionType === "custom" ? [{
+        ...(answerType === "custom" ? [{
           itemType: "toggle",
           propertyName: "toggleLinkEdit",
           tooltip: isLinkEditable ? "Save link" : "Edit link",
@@ -109,26 +110,26 @@ function Widget(props: Partial<AutoLayoutProps>) {
       if (propertyName === "contentType") {
         console.log(`Changing content type to: ${propertyValue}`);
         setContentType(propertyValue);
-      } else if (propertyName === "questionType") {
-        console.log(`Changing question type to: ${propertyValue}`);
-        setQuestionType(propertyValue);
+      } else if (propertyName === "answerType") {
+        console.log(`Changing answer type to: ${propertyValue}`);
+        setAnswerType(propertyValue);
       } else if (propertyName === "addWidget") {
         const currentWidget = figma.currentPage.selection[0] as WidgetNode;
         if (currentWidget && currentWidget.type === "WIDGET") {
-          if (contentType === "question") {
+          if (contentType === "answer") {
             const newWidget = currentWidget.cloneWidget({
-              contentType: "question",
-              questionType: "radio",
+              contentType: "answer",
+              answerType: "radio",
               answerText: "",
               headerText: "",
               radioText: "",
               inputText: "",
-              questionText: "",
+              answerText: "",
               // ... reset all other text fields ...
             });
 
-            newWidget.setPluginData("contentType", "question");
-            newWidget.setPluginData("questionType", "radio");
+            newWidget.setPluginData("contentType", "answer");
+            newWidget.setPluginData("answerType", "radio");
             newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
             newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
             newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
@@ -153,18 +154,18 @@ function Widget(props: Partial<AutoLayoutProps>) {
             figma.currentPage.appendChild(connector);
           } else if (contentType === "header") {
             const newWidget = currentWidget.cloneWidget({
-              contentType: "question",
-              questionType: "radio",
+              contentType: "answer",
+              answerType: "radio",
               answerText: "",
               headerText: "",
               radioText: "",
               inputText: "",
-              questionText: "",
+              answerText: "",
               // ... reset all other text fields ...
             });
 
-            newWidget.setPluginData("contentType", "question");
-            newWidget.setPluginData("questionType", "radio");
+            newWidget.setPluginData("contentType", "answer");
+            newWidget.setPluginData("answerType", "radio");
             newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
             newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
             newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
@@ -188,15 +189,15 @@ function Widget(props: Partial<AutoLayoutProps>) {
             connector.strokeColor = figma.util.solidPaint("#000000");
             figma.currentPage.appendChild(connector);
           } else {
-            // If not a question or header component, clone the current widget as is
+            // If not a answer or header component, clone the current widget as is
             const newWidget = currentWidget.cloneWidget({
               contentType: contentType,
-              questionType: questionType,
+              answerType: answerType,
               // ... reset all text fields ...
             });
 
             newWidget.setPluginData("contentType", contentType);
-            newWidget.setPluginData("questionType", questionType);
+            newWidget.setPluginData("answerType", answerType);
             newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
             newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
             newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
@@ -220,15 +221,15 @@ function Widget(props: Partial<AutoLayoutProps>) {
   );
 
   console.log(`Current content type: ${contentType}`);
-  console.log(`Current question type: ${questionType}`);
+  console.log(`Current answer type: ${answerType}`);
 
   try {
     if (contentType === "header") {
       console.log("Rendering Header component");
       return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} />;
-    } else if (contentType === "question") {
-      console.log("Rendering Question component");
-      switch (questionType) {
+    } else if (contentType === "answer") {
+      console.log("Rendering Answer component");
+      switch (answerType) {
         case "radio":
           return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
         case "input":
@@ -246,8 +247,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         case "custom":
           return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
         default:
-          console.log("Error: Invalid question type");
-          return <Text>Error: Invalid question type</Text>;
+          console.log("Error: Invalid answer type");
+          return <Text>Error: Invalid answer type</Text>;
       }
     } else {
       console.log("Error: Invalid content type");

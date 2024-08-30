@@ -1,21 +1,21 @@
 const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
-interface QuestionTemplateProps extends Partial<AutoLayoutProps> {
+interface AnswerTemplateProps extends Partial<AutoLayoutProps> {
     showAdditionalInput: boolean;
-    questionType: string;
+    answerType: string;
     iconSvg: string;
 }
 
-function QuestionTemplate(props: QuestionTemplateProps) {
-    const [questionText, setQuestionText] = useSyncedState(`${props.questionType}Text`, "");
-    const [numberInputText, setNumberInputText] = useSyncedState(`${props.questionType}NumberText`, "");
-    const [additionalInputText, setAdditionalInputText] = useSyncedState(`${props.questionType}AdditionalText`, "");
+function AnswerTemplate(props: AnswerTemplateProps) {
+    const [answerText, setAnswerText] = useSyncedState(`${props.answerType}Text`, "");
+    const [numberInputText, setNumberInputText] = useSyncedState(`${props.answerType}NumberText`, "");
+    const [additionalInputText, setAdditionalInputText] = useSyncedState(`${props.answerType}AdditionalText`, "");
 
-    console.log(`Rendering ${props.questionType} component with props:`, props);
+    console.log(`Rendering ${props.answerType} component with props:`, props);
 
     return (
         <AutoLayout
-            name={props.questionType}
+            name={props.answerType}
             overflow="visible"
             direction="vertical"
             width={370}
@@ -81,7 +81,7 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                     verticalAlignItems="center"
                 >
                     <Text
-                        name="Question"
+                        name="Answer"
                         fill="#393A78"
                         lineHeight="150%"
                         fontFamily="Inter"
@@ -89,7 +89,7 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                         letterSpacing={-0.154}
                         fontWeight={600}
                     >
-                        Question
+                        Answer
                     </Text>
                 </AutoLayout>
             </AutoLayout>
@@ -112,7 +112,7 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                 width={372}
             >
                 <AutoLayout
-                    name="question"
+                    name="answer"
                     fill="#FFF"
                     stroke="#00000014"
                     strokeWidth={1}
@@ -126,9 +126,9 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                 >
                     <Input
                         name="Input"
-                        value={questionText}
-                        placeholder="Question..."
-                        onTextEditEnd={(event) => setQuestionText(event.characters)}
+                        value={answerText}
+                        placeholder="Answer..."
+                        onTextEditEnd={(event) => setAnswerText(event.characters)}
                         fill="#1E1E1E"
                         width={306}
                         lineHeight="150%"
@@ -172,7 +172,7 @@ function QuestionTemplate(props: QuestionTemplateProps) {
                             letterSpacing={-0.132}
                             fontWeight={600}
                         >
-                            {props.questionType}
+                            {props.answerType}
                         </Text>
                     </AutoLayout>
                 </AutoLayout>
@@ -210,4 +210,4 @@ function QuestionTemplate(props: QuestionTemplateProps) {
     );
 }
 
-export default QuestionTemplate;
+export default AnswerTemplate;
