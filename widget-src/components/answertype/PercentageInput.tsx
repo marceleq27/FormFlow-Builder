@@ -8,7 +8,7 @@ function PercentageInput(props: Partial<AutoLayoutProps> & { showAdditionalInput
     return (
         <AnswerTemplate
             {...props}
-            answerType="PercentageInput"
+            answerType="Percentage Input"
             iconSvg={percentageInputIconSvg}
         />
     );
