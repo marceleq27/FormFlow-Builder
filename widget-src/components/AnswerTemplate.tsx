@@ -92,7 +92,7 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                     <Input
                         name="Input"
                         value={answerText}
-                        placeholder="Answer..."
+                        placeholder="Label..."
                         onTextEditEnd={(event) => setAnswerText(event.characters)}
                         fill="#1E1E1E"
                         width={306}
