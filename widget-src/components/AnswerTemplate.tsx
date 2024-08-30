@@ -24,8 +24,8 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                 name="badge-container"
                 overflow="visible"
                 spacing={10}
-                width={77}
-                horizontalAlignItems="end"
+                width="hug-contents"
+                horizontalAlignItems="center"
             >
                 <AutoLayout
                     name="label"
@@ -47,7 +47,7 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                 >
                     <Text
                         name="Answer"
-                        fill="#393A78"
+                        fill="#1E5C49"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={14}
@@ -94,8 +94,8 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                         value={answerText}
                         placeholder="Label..."
                         onTextEditEnd={(event) => setAnswerText(event.characters)}
-                        fill="#1E1E1E"
-                        width={306}
+                        fill="#000"
+                        width="fill-parent"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={18}
