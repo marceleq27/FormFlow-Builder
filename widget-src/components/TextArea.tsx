@@ -8,7 +8,7 @@ function TextArea(props: Partial<AutoLayoutProps> & { showAdditionalInput: boole
     return (
         <AnswerTemplate
             {...props}
-            answerType="TextArea"
+            answerType="Text area"
             iconSvg={textAreaIconSvg}
         />
     );

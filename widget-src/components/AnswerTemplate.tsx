@@ -135,7 +135,7 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                             fontFamily="Inter"
                             fontSize={12}
                             letterSpacing={-0.132}
-                            fontWeight={600}
+                            fontWeight={500}
                         >
                             {props.answerType}
                         </Text>
