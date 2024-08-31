@@ -24,10 +24,10 @@ function Question(props: QuestionProps) {
                 name="badge-container"
                 overflow="visible"
                 spacing={10}
-                width={77}
-                horizontalAlignItems="end"
+                width={props.showQuestionNumber ? 77 : "hug-contents"}
+                horizontalAlignItems={props.showQuestionNumber ? "end" : "center"}
             >
-                {props.showQuestionNumber && ( // Add this condition
+                {props.showQuestionNumber && (
                     <AutoLayout
                         name="number"
                         fill="#E0E7FF"
