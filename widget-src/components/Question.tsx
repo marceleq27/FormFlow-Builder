@@ -2,6 +2,7 @@ const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
 interface QuestionProps extends Partial<AutoLayoutProps> {
     showAdditionalInput: boolean;
+    showQuestionNumber: boolean; // Add this line
 }
 
 function Question(props: QuestionProps) {
@@ -26,40 +27,42 @@ function Question(props: QuestionProps) {
                 width={77}
                 horizontalAlignItems="end"
             >
-                <AutoLayout
-                    name="number"
-                    fill="#E0E7FF"
-                    height={29}
-                    cornerRadius={{
-                        topLeft: 8,
-                        topRight: 8,
-                        bottomRight: 0,
-                        bottomLeft: 0,
-                    }}
-                    overflow="visible"
-                    spacing={6}
-                    padding={{
-                        vertical: 4,
-                        horizontal: 8,
-                    }}
-                    horizontalAlignItems="center"
-                    verticalAlignItems="center"
-                >
-                    <Input
-                        name="numberInput"
-                        value={numberInputText}
-                        placeholder="1"
-                        onTextEditEnd={(event) => setNumberInputText(event.characters)}
-                        fill="#393A78"
-                        lineHeight="150%"
-                        fontFamily="Inter"
-                        fontSize={14}
-                        letterSpacing={-0.154}
-                        fontWeight={600}
-                        width={32}
-                        horizontalAlignText="center"
-                    />
-                </AutoLayout>
+                {props.showQuestionNumber && ( // Add this condition
+                    <AutoLayout
+                        name="number"
+                        fill="#E0E7FF"
+                        height={29}
+                        cornerRadius={{
+                            topLeft: 8,
+                            topRight: 8,
+                            bottomRight: 0,
+                            bottomLeft: 0,
+                        }}
+                        overflow="visible"
+                        spacing={6}
+                        padding={{
+                            vertical: 4,
+                            horizontal: 8,
+                        }}
+                        horizontalAlignItems="center"
+                        verticalAlignItems="center"
+                    >
+                        <Input
+                            name="numberInput"
+                            value={numberInputText}
+                            placeholder="1"
+                            onTextEditEnd={(event) => setNumberInputText(event.characters)}
+                            fill="#393A78"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={14}
+                            letterSpacing={-0.154}
+                            fontWeight={600}
+                            width={32}
+                            horizontalAlignText="center"
+                        />
+                    </AutoLayout>
+                )}
                 <AutoLayout
                     name="label"
                     fill="#E0E7FF"

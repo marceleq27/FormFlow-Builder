@@ -25,6 +25,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [currency, setCurrency] = useSyncedState("currency", "GBP"); // Add this line
   const [answerText, setAnswerText] = useSyncedState("answerText", "");
   const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
+  const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
 
   usePropertyMenu(
     [
@@ -50,6 +51,15 @@ function Widget(props: Partial<AutoLayoutProps>) {
             <path fill-rule='evenodd' clip-rule='evenodd' d='M9 1C9 0.723858 9.22386 0.5 9.5 0.5L13.5 0.5C13.7761 0.5 14 0.723858 14 1C14 1.27614 13.7761 1.5 13.5 1.5L9.5 1.5C9.22386 1.5 9 1.27614 9 1Z' fill='white'/>
             <path fill-rule='evenodd' clip-rule='evenodd' d='M2 9C2 8.72386 2.22386 8.5 2.5 8.5H13.5C13.7761 8.5 14 8.72386 14 9C14 9.27614 13.7761 9.5 13.5 9.5H2.5C2.22386 9.5 2 9.27614 2 9Z' fill='white'/>
             <path fill-rule='evenodd' clip-rule='evenodd' d='M6.60355 1.39645C6.79882 1.59171 6.79882 1.90829 6.60355 2.10355L4.10355 4.60355C3.90829 4.79882 3.59171 4.79882 3.39645 4.60355L0.896447 2.10355C0.701184 1.90829 0.701184 1.59171 0.896447 1.39645C1.09171 1.20118 1.40829 1.20118 1.60355 1.39645L3.75 3.54289L5.89645 1.39645C6.09171 1.20118 6.40829 1.20118 6.60355 1.39645Z' fill='white'/>
+          </svg>`
+        },
+        {
+          itemType: "toggle",
+          propertyName: "toggleQuestionNumber",
+          tooltip: showQuestionNumber ? "Hide number" : "Show number",
+          isToggled: showQuestionNumber,
+          icon: `<svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path fill-rule='evenodd' clip-rule='evenodd' d='M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM7.5 3C7.5 2.72386 7.27614 2.5 7 2.5C6.72386 2.5 6.5 2.72386 6.5 3V7.5H4C3.72386 7.5 3.5 7.72386 3.5 8C3.5 8.27614 3.72386 8.5 4 8.5H7C7.27614 8.5 7.5 8.27614 7.5 8V3Z' fill='white'/>
           </svg>`
         }
       ] : []),
@@ -207,6 +217,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         setCurrency(propertyValue);
       } else if (propertyName === "toggleQuestionAdditionalInput") {
         setShowAdditionalInput(!showAdditionalInput);
+      } else if (propertyName === "toggleQuestionNumber") {
+        setShowQuestionNumber(!showQuestionNumber);
       }
     }
   );
@@ -220,7 +232,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} />;
     } else if (contentType === "question") {
       console.log("Rendering Question component");
-      return <Question {...props} showAdditionalInput={showAdditionalInput} />;
+      return <Question {...props} showAdditionalInput={showAdditionalInput} showQuestionNumber={showQuestionNumber} />;
     } else if (contentType === "answer") {
       console.log("Rendering Answer component");
       switch (answerType) {
