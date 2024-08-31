@@ -13,6 +13,9 @@ import Slider from './components/answertype/Slider';
 import Custom from './components/answertype/Custom';
 import Question from './components/Question';
 import { icons } from './icons';
+import { contentTypeOptions } from './constants/contentTypeOptions';
+import { answerTypeOptions } from './constants/answerTypeOptions';
+import { currencyOptions } from './constants/currencyOptions';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -23,7 +26,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", false);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
   const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", false);
-  const [currency, setCurrency] = useSyncedState("currency", "GBP"); // Add this line
+  const [currency, setCurrency] = useSyncedState("currency", "GBP");
   const [answerText, setAnswerText] = useSyncedState("answerText", "");
   const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
@@ -35,11 +38,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         itemType: "dropdown",
         propertyName: "contentType",
         tooltip: "Select Content Type",
-        options: [
-          { option: "header", label: "Header" },
-          { option: "question", label: "Question" },
-          { option: "answer", label: "Answer" },
-        ],
+        options: contentTypeOptions,
         selectedOption: contentType,
       },
       ...(contentType === "question" ? [
@@ -63,31 +62,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
           itemType: "dropdown",
           propertyName: "answerType",
           tooltip: "Select Answer Type",
-          options: [
-            { option: "input", label: "Input" },
-            { option: "radio", label: "Radio" },
-            { option: "dropdown", label: "Dropdown" },
-            { option: "checkbox", label: "Checkbox" },
-            { option: "textarea", label: "Text Area" },
-            { option: "currency", label: "Currency" },
-            { option: "percentageinput", label: "Percentage Input" },
-            { option: "datepicker", label: "Datepicker" },
-            { option: "fileupload", label: "File Upload" },
-            { option: "slider", label: "Slider" },
-            { option: "custom", label: "Custom" },
-          ],
+          options: answerTypeOptions,
           selectedOption: answerType,
         },
         ...(answerType === "currency" ? [{
           itemType: "dropdown",
           propertyName: "currency",
           tooltip: "Select Currency",
-          options: [
-            { option: "USD", label: "US Dollar (USD)" },
-            { option: "EUR", label: "Euro (EUR)" },
-            { option: "GBP", label: "British Pound (GBP)" },
-            { option: "JPY", label: "Japanese Yen (JPY)" },
-          ],
+          options: currencyOptions,
           selectedOption: currency,
         }] : []),
         {
