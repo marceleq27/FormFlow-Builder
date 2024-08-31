@@ -22,6 +22,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
   const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", false);
   const [currency, setCurrency] = useSyncedState("currency", "GBP"); // Add this line
+  const [answerText, setAnswerText] = useSyncedState("answerText", "");
+  const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
 
   usePropertyMenu(
     [
@@ -131,74 +133,53 @@ function Widget(props: Partial<AutoLayoutProps>) {
         setContentType(propertyValue);
       } else if (propertyName === "answerType") {
         console.log(`Changing answer type to: ${propertyValue}`);
+        const currentWidget = figma.currentPage.selection[0] as WidgetNode;
+        if (currentWidget && currentWidget.type === "WIDGET") {
+          const newWidget = currentWidget.cloneWidget({
+            contentType: contentType,
+            answerType: propertyValue,
+            answerText: answerText,
+            additionalInputText: additionalInputText,
+            // ... other properties ...
+          });
+
+          newWidget.setPluginData("contentType", contentType);
+          newWidget.setPluginData("answerType", propertyValue);
+          newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
+          newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
+          newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
+          newWidget.setPluginData("answerText", answerText);
+          newWidget.setPluginData("additionalInputText", additionalInputText);
+
+          newWidget.x = currentWidget.x;
+          newWidget.y = currentWidget.y;
+          figma.currentPage.appendChild(newWidget);
+          figma.currentPage.selection = [newWidget];
+          currentWidget.remove();
+        }
         setAnswerType(propertyValue);
       } else if (propertyName === "addWidget") {
         const currentWidget = figma.currentPage.selection[0] as WidgetNode;
         if (currentWidget && currentWidget.type === "WIDGET") {
-          if (contentType === "answer") {
-            const newWidget = currentWidget.cloneWidget({
-              contentType: "answer",
-              answerType: "radio",
-              answerText: "",
-              headerText: "",
-              radioText: "",
-              inputText: "",
-              // ... reset all other text fields ...
-            });
+          const newWidget = currentWidget.cloneWidget({
+            contentType: contentType,
+            answerType: answerType,
+            answerText: "",
+            additionalInputText: "",
+            // ... reset all other text fields ...
+          });
 
-            newWidget.setPluginData("contentType", "answer");
-            newWidget.setPluginData("answerType", "radio");
-            newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
-            newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
-            newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
+          newWidget.setPluginData("contentType", contentType);
+          newWidget.setPluginData("answerType", answerType);
+          newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
+          newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
+          newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
+          newWidget.setPluginData("answerText", "");
+          newWidget.setPluginData("additionalInputText", "");
 
-            newWidget.x = currentWidget.x;
-            newWidget.y = currentWidget.y + currentWidget.height + 50;
-            figma.currentPage.appendChild(newWidget);
-
-            // Remove the creation of the connector
-          } else if (contentType === "header") {
-            const newWidget = currentWidget.cloneWidget({
-              contentType: "answer",
-              answerType: "radio",
-              answerText: "",
-              headerText: "",
-              radioText: "",
-              inputText: "",
-              // ... reset all other text fields ...
-            });
-
-            newWidget.setPluginData("contentType", "answer");
-            newWidget.setPluginData("answerType", "radio");
-            newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
-            newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
-            newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
-
-            newWidget.x = currentWidget.x;
-            newWidget.y = currentWidget.y + currentWidget.height + 50;
-            figma.currentPage.appendChild(newWidget);
-
-            // Remove the creation of the connector
-          } else {
-            // If not a answer or header component, clone the current widget as is
-            const newWidget = currentWidget.cloneWidget({
-              contentType: contentType,
-              answerType: answerType,
-              // ... reset all text fields ...
-            });
-
-            newWidget.setPluginData("contentType", contentType);
-            newWidget.setPluginData("answerType", answerType);
-            newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
-            newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
-            newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
-
-            newWidget.x = currentWidget.x;
-            newWidget.y = currentWidget.y + currentWidget.height + 50;
-            figma.currentPage.appendChild(newWidget);
-
-            // Remove the creation of the connector
-          }
+          newWidget.x = currentWidget.x;
+          newWidget.y = currentWidget.y + currentWidget.height + 50;
+          figma.currentPage.appendChild(newWidget);
         }
       } else if (propertyName === "toggleAdditionalInput") {
         setShowAdditionalInput(!showAdditionalInput);
@@ -223,27 +204,27 @@ function Widget(props: Partial<AutoLayoutProps>) {
       console.log("Rendering Answer component");
       switch (answerType) {
         case "input":
-          return <Input {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Input {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "radio":
-          return <Radio {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Radio {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "dropdown":
-          return <Dropdown {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Dropdown {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "checkbox":
-          return <Checkbox {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Checkbox {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "textarea":
-          return <TextArea {...props} showAdditionalInput={showAdditionalInput} />;
+          return <TextArea {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "currency":
-          return <Currency {...props} showAdditionalInput={showAdditionalInput} currency={currency} />;
+          return <Currency {...props} showAdditionalInput={showAdditionalInput} currency={currency} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "percentageinput":
-          return <PercentageInput {...props} showAdditionalInput={showAdditionalInput} />;
+          return <PercentageInput {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "datepicker":
-          return <Datepicker {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Datepicker {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "fileupload":
-          return <Fileupload {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Fileupload {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "slider":
-          return <Slider {...props} showAdditionalInput={showAdditionalInput} />;
+          return <Slider {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "custom":
-          return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
+          return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         default:
           console.log("Error: Invalid answer type");
           return <Text>Error: Invalid answer type</Text>;

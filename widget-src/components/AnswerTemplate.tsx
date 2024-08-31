@@ -6,10 +6,12 @@ interface AnswerTemplateProps extends Partial<AutoLayoutProps> {
     iconSvg: string;
 }
 
-function AnswerTemplate(props: AnswerTemplateProps) {
-    const [answerText, setAnswerText] = useSyncedState(`${props.answerType}Text`, "");
-    const [additionalInputText, setAdditionalInputText] = useSyncedState(`${props.answerType}AdditionalText`, "");
-
+function AnswerTemplate(props: AnswerTemplateProps & {
+    answerText: string,
+    setAnswerText: (text: string) => void,
+    additionalInputText: string,
+    setAdditionalInputText: (text: string) => void
+}) {
     console.log(`Rendering ${props.answerType} component with props:`, props);
 
     return (
@@ -91,9 +93,9 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                 >
                     <Input
                         name="Input"
-                        value={answerText}
+                        value={props.answerText}
                         placeholder="Label..."
-                        onTextEditEnd={(event) => setAnswerText(event.characters)}
+                        onTextEditEnd={(event) => props.setAnswerText(event.characters)}
                         fill="#000"
                         width="fill-parent"
                         lineHeight="150%"
@@ -157,9 +159,9 @@ function AnswerTemplate(props: AnswerTemplateProps) {
                     >
                         <Input
                             name="additionalInput"
-                            value={additionalInputText}
+                            value={props.additionalInputText}
                             placeholder="Additional information"
-                            onTextEditEnd={(event) => setAdditionalInputText(event.characters)}
+                            onTextEditEnd={(event) => props.setAdditionalInputText(event.characters)}
                             fill="#1E1E1E9E"
                             width="fill-parent"
                             lineHeight="150%"
