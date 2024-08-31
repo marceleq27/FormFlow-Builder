@@ -15,11 +15,11 @@ function Question(props: QuestionProps) {
 
     // Define styles for validation tag based on isValidationRequired prop
     const validationTagStyle = props.isValidationRequired
-        ? { fill: "#FFE2E5", stroke: "#FF8A95", strokeWidth: 1 }
+        ? { fill: "#FFE0E1" }
         : { fill: "#E3E4E8" };
 
     const validationTextStyle = props.isValidationRequired
-        ? { fill: "#FF505F" }
+        ? { fill: "#78393A" }
         : { fill: "#30333D" };
 
     return (
