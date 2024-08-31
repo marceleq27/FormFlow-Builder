@@ -17,8 +17,8 @@ const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
 
 function Widget(props: Partial<AutoLayoutProps>) {
-  const [contentType, setContentType] = useSyncedState("contentType", "answer");
-  const [answerType, setAnswerType] = useSyncedState("answerType", "radio");
+  const [contentType, setContentType] = useSyncedState("contentType", "header");
+  const [answerType, setAnswerType] = useSyncedState("answerType", "input");
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", false);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
   const [showHeaderAdditionalInput, setShowHeaderAdditionalInput] = useSyncedState("showHeaderAdditionalInput", false);
@@ -58,9 +58,9 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "toggleQuestionNumber",
           tooltip: showQuestionNumber ? "Hide number" : "Show number",
           isToggled: showQuestionNumber,
-          icon: `<svg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path fill-rule='evenodd' clip-rule='evenodd' d='M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14ZM7.5 3C7.5 2.72386 7.27614 2.5 7 2.5C6.72386 2.5 6.5 2.72386 6.5 3V7.5H4C3.72386 7.5 3.5 7.72386 3.5 8C3.5 8.27614 3.72386 8.5 4 8.5H7C7.27614 8.5 7.5 8.27614 7.5 8V3Z' fill='white'/>
-          </svg>`
+          icon: `<svg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
+<path d='M14.2878 9.15332H10.7878V5.65332H14.2878C14.4425 5.65332 14.5908 5.59186 14.7002 5.48247C14.8096 5.37307 14.8711 5.2247 14.8711 5.06999C14.8711 4.91528 14.8096 4.7669 14.7002 4.65751C14.5908 4.54811 14.4425 4.48665 14.2878 4.48665H10.7878V0.986654C10.7878 0.831944 10.7263 0.683571 10.6169 0.574175C10.5075 0.464779 10.3591 0.40332 10.2044 0.40332C10.0497 0.40332 9.90134 0.464779 9.79195 0.574175C9.68255 0.683571 9.62109 0.831944 9.62109 0.986654V4.48665H6.12109V0.986654C6.12109 0.831944 6.05964 0.683571 5.95024 0.574175C5.84084 0.464779 5.69247 0.40332 5.53776 0.40332C5.38305 0.40332 5.23468 0.464779 5.12528 0.574175C5.01589 0.683571 4.95443 0.831944 4.95443 0.986654V4.48665H1.45443C1.29972 4.48665 1.15134 4.54811 1.04195 4.65751C0.932552 4.7669 0.871094 4.91528 0.871094 5.06999C0.871094 5.2247 0.932552 5.37307 1.04195 5.48247C1.15134 5.59186 1.29972 5.65332 1.45443 5.65332H4.95443V9.15332H1.45443C1.29972 9.15332 1.15134 9.21478 1.04195 9.32417C0.932552 9.43357 0.871094 9.58194 0.871094 9.73665C0.871094 9.89136 0.932552 10.0397 1.04195 10.1491C1.15134 10.2585 1.29972 10.32 1.45443 10.32H4.95443V13.82C4.95443 13.9747 5.01589 14.1231 5.12528 14.2325C5.23468 14.3419 5.38305 14.4033 5.53776 14.4033C5.69247 14.4033 5.84084 14.3419 5.95024 14.2325C6.05964 14.1231 6.12109 13.9747 6.12109 13.82V10.32H9.62109V13.82C9.62109 13.9747 9.68255 14.1231 9.79195 14.2325C9.90134 14.3419 10.0497 14.4033 10.2044 14.4033C10.3591 14.4033 10.5075 14.3419 10.6169 14.2325C10.7263 14.1231 10.7878 13.9747 10.7878 13.82V10.32H14.2878C14.4425 10.32 14.5908 10.2585 14.7002 10.1491C14.8096 10.0397 14.8711 9.89136 14.8711 9.73665C14.8711 9.58194 14.8096 9.43357 14.7002 9.32417C14.5908 9.21478 14.4425 9.15332 14.2878 9.15332ZM6.12109 9.15332V5.65332H9.62109V9.15332H6.12109Z' fill='white'/>
+</svg>`
         }
       ] : []),
       ...(contentType === "answer" ? [
