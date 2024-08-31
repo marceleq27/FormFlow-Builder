@@ -78,6 +78,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       tooltip = "Additional information";
     } else if (propertyName === "toggleQuestionNumber" || propertyName === "toggleHeaderNumber") {
       tooltip = "Number";
+    } else if (propertyName === "toggleLinkEdit") {
+      tooltip = isToggled ? "Save link" : "Edit link";
     } else {
       tooltip = isToggled ? "Hide" : "Show";
     }
