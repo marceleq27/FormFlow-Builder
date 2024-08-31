@@ -14,6 +14,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
   const [showHeaderNumber, setShowHeaderNumber] = useSyncedState("showHeaderNumber", true);
+  const [isValidationRequired, setIsValidationRequired] = useSyncedState("isValidationRequired", false);
 
   const propertyMenuItems = [
     {
@@ -25,7 +26,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
     },
     ...(contentType === "question" ? [
       createToggleItem("toggleQuestionAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
-      createToggleItem("toggleQuestionNumber", showQuestionNumber, imports.icons.QUESTION_NUMBER)
+      createToggleItem("toggleQuestionNumber", showQuestionNumber, imports.icons.QUESTION_NUMBER),
+      createToggleItem("toggleValidationRequired", isValidationRequired, imports.icons.REQUIRE_TOGGLE, "Required")
     ] : []),
     ...(contentType === "answer" ? [
       {
@@ -68,11 +70,13 @@ function Widget(props: Partial<AutoLayoutProps>) {
     return <Text>Error rendering component: {error.message}</Text>;
   }
 
-  function createToggleItem(propertyName, isToggled, icon) {
+  function createToggleItem(propertyName, isToggled, icon, tooltipPrefix = "") {
+    const baseTooltip = isToggled ? "Hide" : "Show";
+    const tooltip = tooltipPrefix ? `${tooltipPrefix}: ${isToggled ? "On" : "Off"}` : baseTooltip;
     return {
       itemType: "toggle",
       propertyName,
-      tooltip: isToggled ? "Hide" : "Show",
+      tooltip,
       isToggled,
       icon
     };
@@ -97,7 +101,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       currency: () => setCurrency(propertyValue),
       toggleQuestionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
       toggleQuestionNumber: () => setShowQuestionNumber(!showQuestionNumber),
-      toggleHeaderNumber: () => setShowHeaderNumber(!showHeaderNumber)
+      toggleHeaderNumber: () => setShowHeaderNumber(!showHeaderNumber),
+      toggleValidationRequired: () => setIsValidationRequired(!isValidationRequired)
     };
 
     const action = actions[propertyName];
@@ -161,7 +166,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
     if (contentType === "header") {
       return <imports.Header {...commonProps} showAdditionalInput={showHeaderAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else if (contentType === "question") {
-      return <imports.Question {...commonProps} showQuestionNumber={showQuestionNumber} />;
+      return <imports.Question {...commonProps} showQuestionNumber={showQuestionNumber} isValidationRequired={isValidationRequired} />;
     } else if (contentType === "answer") {
       const AnswerComponent = imports[answerType.charAt(0).toUpperCase() + answerType.slice(1)];
       return <AnswerComponent {...commonProps} isLinkEditable={isLinkEditable} currency={currency} />;

@@ -3,6 +3,7 @@ const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 interface QuestionProps extends Partial<AutoLayoutProps> {
     showAdditionalInput: boolean;
     showQuestionNumber: boolean; // Add this line
+    isValidationRequired: boolean; // Add this new prop
 }
 
 function Question(props: QuestionProps) {
@@ -11,6 +12,15 @@ function Question(props: QuestionProps) {
     const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
 
     console.log("Rendering Question component with props:", props);
+
+    // Define styles for validation tag based on isValidationRequired prop
+    const validationTagStyle = props.isValidationRequired
+        ? { fill: "#FFE2E5", stroke: "#FF8A95", strokeWidth: 1 }
+        : { fill: "#E3E4E8" };
+
+    const validationTextStyle = props.isValidationRequired
+        ? { fill: "#FF505F" }
+        : { fill: "#30333D" };
 
     return (
         <AutoLayout
@@ -140,7 +150,6 @@ function Question(props: QuestionProps) {
                     />
                     <AutoLayout
                         name="validation-tag"
-                        fill="#E3E4E8"
                         cornerRadius={5}
                         overflow="visible"
                         spacing={3}
@@ -150,17 +159,18 @@ function Question(props: QuestionProps) {
                         }}
                         horizontalAlignItems="center"
                         verticalAlignItems="center"
+                        {...validationTagStyle}
                     >
                         <Text
                             name="validation-text"
-                            fill="#30333D"
                             lineHeight="150%"
                             fontFamily="Inter"
                             fontSize={12}
                             letterSpacing={-0.132}
                             fontWeight={500}
+                            {...validationTextStyle}
                         >
-                            Optional
+                            {props.isValidationRequired ? "Required" : "Optional"}
                         </Text>
                     </AutoLayout>
                 </AutoLayout>
