@@ -74,6 +74,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
     let tooltip;
     if (propertyName === "toggleValidationRequired") {
       tooltip = "Required";
+    } else if (propertyName === "toggleQuestionAdditionalInput" || propertyName === "toggleAdditionalInput" || propertyName === "toggleHeaderAdditionalInput") {
+      tooltip = "Additional information";
     } else {
       tooltip = isToggled ? "Hide" : "Show";
     }
