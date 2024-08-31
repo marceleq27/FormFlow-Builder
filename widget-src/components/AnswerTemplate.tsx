@@ -100,7 +100,7 @@ function AnswerTemplate(props: AnswerTemplateProps & {
                         width="fill-parent"
                         lineHeight="150%"
                         fontFamily="Inter"
-                        fontSize={18}
+                        fontSize={16}
                         letterSpacing={-0.198}
                         fontWeight={500}
                     />
