@@ -138,6 +138,31 @@ function Question(props: QuestionProps) {
                         letterSpacing={-0.198}
                         fontWeight={500}
                     />
+                    <AutoLayout
+                        name="validation-tag"
+                        fill="#E3E4E8"
+                        cornerRadius={5}
+                        overflow="visible"
+                        spacing={3}
+                        padding={{
+                            vertical: 2,
+                            horizontal: 4,
+                        }}
+                        horizontalAlignItems="center"
+                        verticalAlignItems="center"
+                    >
+                        <Text
+                            name="validation-text"
+                            fill="#30333D"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={12}
+                            letterSpacing={-0.132}
+                            fontWeight={500}
+                        >
+                            Optional
+                        </Text>
+                    </AutoLayout>
                 </AutoLayout>
                 {props.showAdditionalInput && (
                     <AutoLayout
