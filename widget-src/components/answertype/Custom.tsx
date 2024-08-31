@@ -1,8 +1,13 @@
 const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
-function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean, isLinkEditable: boolean }) {
-    const [radioText, setRadioText] = useSyncedState("radioText", "");
-    const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
+function Custom(props: Partial<AutoLayoutProps> & {
+    showAdditionalInput: boolean,
+    isLinkEditable: boolean,
+    answerText: string,
+    setAnswerText: (text: string) => void,
+    additionalInputText: string,
+    setAdditionalInputText: (text: string) => void
+}) {
     const [linkText, setLinkText] = useSyncedState("linkText", "");
 
     console.log("Rendering Custom component with props:", props);
@@ -100,11 +105,11 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                 >
                     <Input
                         name="custom"
-                        value={radioText}
+                        value={props.answerText}
                         placeholder="Answer..."
-                        onTextEditEnd={(event) => setRadioText(event.characters)}
+                        onTextEditEnd={(event) => props.setAnswerText(event.characters)}
                         fill="#1E1E1E"
-                        width={306}
+                        width="fill-parent"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={18}
@@ -253,9 +258,9 @@ function Custom(props: Partial<AutoLayoutProps> & { showAdditionalInput: boolean
                     >
                         <Input
                             name="additionalInput"
-                            value={additionalInputText}
+                            value={props.additionalInputText}
                             placeholder="Additional information"
-                            onTextEditEnd={(event) => setAdditionalInputText(event.characters)}
+                            onTextEditEnd={(event) => props.setAdditionalInputText(event.characters)}
                             fill="#1E1E1E9E"
                             width="fill-parent"
                             lineHeight="150%"
