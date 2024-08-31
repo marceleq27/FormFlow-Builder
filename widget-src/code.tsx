@@ -15,212 +15,160 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
   const [showHeaderNumber, setShowHeaderNumber] = useSyncedState("showHeaderNumber", true);
 
-  usePropertyMenu(
-    [
+  const propertyMenuItems = [
+    {
+      itemType: "dropdown",
+      propertyName: "contentType",
+      tooltip: "Select Content Type",
+      options: imports.contentTypeOptions,
+      selectedOption: contentType,
+    },
+    ...(contentType === "question" ? [
+      createToggleItem("toggleQuestionAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
+      createToggleItem("toggleQuestionNumber", showQuestionNumber, imports.icons.QUESTION_NUMBER)
+    ] : []),
+    ...(contentType === "answer" ? [
       {
         itemType: "dropdown",
-        propertyName: "contentType",
-        tooltip: "Select Content Type",
-        options: imports.contentTypeOptions,
-        selectedOption: contentType,
+        propertyName: "answerType",
+        tooltip: "Select Answer Type",
+        options: imports.answerTypeOptions,
+        selectedOption: answerType,
       },
-      ...(contentType === "question" ? [
-        {
-          itemType: "toggle",
-          propertyName: "toggleQuestionAdditionalInput",
-          tooltip: showAdditionalInput ? "Hide additional" : "Show additional",
-          isToggled: showAdditionalInput,
-          icon: imports.icons.ADDITIONAL_INPUT
-        },
-        {
-          itemType: "toggle",
-          propertyName: "toggleQuestionNumber",
-          tooltip: showQuestionNumber ? "Hide number" : "Show number",
-          isToggled: showQuestionNumber,
-          icon: imports.icons.QUESTION_NUMBER
-        }
-      ] : []),
-      ...(contentType === "answer" ? [
-        {
-          itemType: "dropdown",
-          propertyName: "answerType",
-          tooltip: "Select Answer Type",
-          options: imports.answerTypeOptions,
-          selectedOption: answerType,
-        },
-        ...(answerType === "currency" ? [{
-          itemType: "dropdown",
-          propertyName: "currency",
-          tooltip: "Select Currency",
-          options: imports.currencyOptions,
-          selectedOption: currency,
-        }] : []),
-        {
-          itemType: "toggle",
-          propertyName: "toggleAdditionalInput",
-          tooltip: showAdditionalInput ? "Hide additional" : "Show additional",
-          isToggled: showAdditionalInput,
-          icon: imports.icons.ADDITIONAL_INPUT
-        },
-        ...(answerType === "custom" ? [{
-          itemType: "toggle",
-          propertyName: "toggleLinkEdit",
-          tooltip: isLinkEditable ? "Save link" : "Edit link",
-          isToggled: isLinkEditable,
-          icon: imports.icons.EDIT_LINK
-        }] : [])
-      ] : []),
-      ...(contentType === "header" ? [
-        {
-          itemType: "toggle",
-          propertyName: "toggleHeaderAdditionalInput",
-          tooltip: showHeaderAdditionalInput ? "Hide additional" : "Show additional",
-          isToggled: showHeaderAdditionalInput,
-          icon: imports.icons.ADDITIONAL_INPUT
-        },
-        {
-          itemType: "toggle",
-          propertyName: "toggleHeaderNumber",
-          tooltip: showHeaderNumber ? "Hide number" : "Show number",
-          isToggled: showHeaderNumber,
-          icon: imports.icons.HEADER_NUMBER
-        }
-      ] : []),
-      {
-        itemType: "separator"
-      },
-      {
-        itemType: "action",
-        propertyName: "addWidget",
-        tooltip: "Add",
-        icon: imports.icons.ADD_WIDGET
-      },
-      {
-        itemType: "link",
-        propertyName: "guide",
-        tooltip: "Guide",
-        href: "https://x.com/home",
-        icon: imports.icons.GUIDE
-      },
-    ],
-    ({ propertyName, propertyValue }) => {
-      if (propertyName === "contentType") {
-        console.log(`Changing content type to: ${propertyValue}`);
-        setContentType(propertyValue);
-      } else if (propertyName === "answerType") {
-        console.log(`Changing answer type to: ${propertyValue}`);
-        const currentWidget = figma.currentPage.selection[0] as WidgetNode;
-        if (currentWidget && currentWidget.type === "WIDGET") {
-          const newWidget = currentWidget.cloneWidget({
-            contentType: contentType,
-            answerType: propertyValue,
-            answerText: answerText,
-            additionalInputText: additionalInputText,
-            // ... other properties ...
-          });
+      ...(answerType === "currency" ? [{
+        itemType: "dropdown",
+        propertyName: "currency",
+        tooltip: "Select Currency",
+        options: imports.currencyOptions,
+        selectedOption: currency,
+      }] : []),
+      createToggleItem("toggleAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
+      ...(answerType === "custom" ? [
+        createToggleItem("toggleLinkEdit", isLinkEditable, imports.icons.EDIT_LINK)
+      ] : [])
+    ] : []),
+    ...(contentType === "header" ? [
+      createToggleItem("toggleHeaderAdditionalInput", showHeaderAdditionalInput, imports.icons.ADDITIONAL_INPUT),
+      createToggleItem("toggleHeaderNumber", showHeaderNumber, imports.icons.HEADER_NUMBER)
+    ] : []),
+    { itemType: "separator" },
+    createActionItem("addWidget", "Add", imports.icons.ADD_WIDGET),
+    createLinkItem("guide", "Guide", "https://x.com/home", imports.icons.GUIDE)
+  ];
 
-          newWidget.setPluginData("contentType", contentType);
-          newWidget.setPluginData("answerType", propertyValue);
-          newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
-          newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
-          newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
-          newWidget.setPluginData("answerText", answerText);
-          newWidget.setPluginData("additionalInputText", additionalInputText);
-
-          newWidget.x = currentWidget.x;
-          newWidget.y = currentWidget.y;
-          figma.currentPage.appendChild(newWidget);
-          figma.currentPage.selection = [newWidget];
-          currentWidget.remove();
-        }
-        setAnswerType(propertyValue);
-      } else if (propertyName === "addWidget") {
-        const currentWidget = figma.currentPage.selection[0] as WidgetNode;
-        if (currentWidget && currentWidget.type === "WIDGET") {
-          const newWidget = currentWidget.cloneWidget({
-            contentType: contentType,
-            answerType: answerType,
-            answerText: "",
-            additionalInputText: "",
-            // ... reset all other text fields ...
-          });
-
-          newWidget.setPluginData("contentType", contentType);
-          newWidget.setPluginData("answerType", answerType);
-          newWidget.setPluginData("showAdditionalInput", showAdditionalInput.toString());
-          newWidget.setPluginData("isLinkEditable", isLinkEditable.toString());
-          newWidget.setPluginData("showHeaderAdditionalInput", showHeaderAdditionalInput.toString());
-          newWidget.setPluginData("answerText", "");
-          newWidget.setPluginData("additionalInputText", "");
-
-          newWidget.x = currentWidget.x;
-          newWidget.y = currentWidget.y + currentWidget.height + 50;
-          figma.currentPage.appendChild(newWidget);
-        }
-      } else if (propertyName === "toggleAdditionalInput") {
-        setShowAdditionalInput(!showAdditionalInput);
-      } else if (propertyName === "toggleLinkEdit") {
-        setIsLinkEditable(!isLinkEditable);
-      } else if (propertyName === "toggleHeaderAdditionalInput") {
-        setShowHeaderAdditionalInput(!showHeaderAdditionalInput);
-      } else if (propertyName === "currency") {
-        setCurrency(propertyValue);
-      } else if (propertyName === "toggleQuestionAdditionalInput") {
-        setShowAdditionalInput(!showAdditionalInput);
-      } else if (propertyName === "toggleQuestionNumber") {
-        setShowQuestionNumber(!showQuestionNumber);
-      } else if (propertyName === "toggleHeaderNumber") {
-        setShowHeaderNumber(!showHeaderNumber);
-      }
-    }
-  );
+  usePropertyMenu(propertyMenuItems, handlePropertyChange);
 
   console.log(`Current content type: ${contentType}`);
   console.log(`Current answer type: ${answerType}`);
 
   try {
+    return renderComponent();
+  } catch (error) {
+    console.error("Error rendering component:", error);
+    return <Text>Error rendering component: {error.message}</Text>;
+  }
+
+  function createToggleItem(propertyName, isToggled, icon) {
+    return {
+      itemType: "toggle",
+      propertyName,
+      tooltip: isToggled ? "Hide" : "Show",
+      isToggled,
+      icon
+    };
+  }
+
+  function createActionItem(propertyName, tooltip, icon) {
+    return { itemType: "action", propertyName, tooltip, icon };
+  }
+
+  function createLinkItem(propertyName, tooltip, href, icon) {
+    return { itemType: "link", propertyName, tooltip, href, icon };
+  }
+
+  function handlePropertyChange({ propertyName, propertyValue }) {
+    const actions = {
+      contentType: () => setContentType(propertyValue),
+      answerType: () => handleAnswerTypeChange(propertyValue),
+      addWidget: addWidget,
+      toggleAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
+      toggleLinkEdit: () => setIsLinkEditable(!isLinkEditable),
+      toggleHeaderAdditionalInput: () => setShowHeaderAdditionalInput(!showHeaderAdditionalInput),
+      currency: () => setCurrency(propertyValue),
+      toggleQuestionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
+      toggleQuestionNumber: () => setShowQuestionNumber(!showQuestionNumber),
+      toggleHeaderNumber: () => setShowHeaderNumber(!showHeaderNumber)
+    };
+
+    const action = actions[propertyName];
+    if (action) action();
+  }
+
+  function handleAnswerTypeChange(newAnswerType) {
+    console.log(`Changing answer type to: ${newAnswerType}`);
+    const currentWidget = figma.currentPage.selection[0] as WidgetNode;
+    if (currentWidget && currentWidget.type === "WIDGET") {
+      const newWidget = currentWidget.cloneWidget({
+        contentType, answerType: newAnswerType, answerText, additionalInputText,
+      });
+
+      updateWidgetPluginData(newWidget, newAnswerType);
+      replaceWidget(currentWidget, newWidget);
+    }
+    setAnswerType(newAnswerType);
+  }
+
+  function updateWidgetPluginData(widget, newAnswerType) {
+    const data = {
+      contentType, answerType: newAnswerType, showAdditionalInput: showAdditionalInput.toString(),
+      isLinkEditable: isLinkEditable.toString(), showHeaderAdditionalInput: showHeaderAdditionalInput.toString(),
+      answerText, additionalInputText
+    };
+    Object.entries(data).forEach(([key, value]) => widget.setPluginData(key, value));
+  }
+
+  function replaceWidget(oldWidget, newWidget) {
+    newWidget.x = oldWidget.x;
+    newWidget.y = oldWidget.y;
+    figma.currentPage.appendChild(newWidget);
+    figma.currentPage.selection = [newWidget];
+    oldWidget.remove();
+  }
+
+  function addWidget() {
+    const currentWidget = figma.currentPage.selection[0] as WidgetNode;
+    if (currentWidget && currentWidget.type === "WIDGET") {
+      const newWidget = currentWidget.cloneWidget({
+        contentType, answerType, answerText: "", additionalInputText: "",
+      });
+
+      updateWidgetPluginData(newWidget, answerType);
+      newWidget.y = currentWidget.y + currentWidget.height + 50;
+      figma.currentPage.appendChild(newWidget);
+    }
+  }
+
+  function renderComponent() {
+    const commonProps = {
+      ...props,
+      showAdditionalInput,
+      answerText,
+      setAnswerText,
+      additionalInputText,
+      setAdditionalInputText
+    };
+
     if (contentType === "header") {
-      console.log("Rendering Header component");
-      return <imports.Header {...props} showAdditionalInput={showHeaderAdditionalInput} showHeaderNumber={showHeaderNumber} />;
+      return <imports.Header {...commonProps} showAdditionalInput={showHeaderAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else if (contentType === "question") {
-      console.log("Rendering Question component");
-      return <imports.Question {...props} showAdditionalInput={showAdditionalInput} showQuestionNumber={showQuestionNumber} />;
+      return <imports.Question {...commonProps} showQuestionNumber={showQuestionNumber} />;
     } else if (contentType === "answer") {
-      console.log("Rendering Answer component");
-      switch (answerType) {
-        case "input":
-          return <imports.Input {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "radio":
-          return <imports.Radio {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "dropdown":
-          return <imports.Dropdown {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "checkbox":
-          return <imports.Checkbox {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "textarea":
-          return <imports.TextArea {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "currency":
-          return <imports.Currency {...props} showAdditionalInput={showAdditionalInput} currency={currency} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "percentageinput":
-          return <imports.PercentageInput {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "datepicker":
-          return <imports.Datepicker {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "fileupload":
-          return <imports.Fileupload {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "slider":
-          return <imports.Slider {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        case "custom":
-          return <imports.Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
-        default:
-          console.log("Error: Invalid answer type");
-          return <Text>Error: Invalid answer type</Text>;
-      }
+      const AnswerComponent = imports[answerType.charAt(0).toUpperCase() + answerType.slice(1)];
+      return <AnswerComponent {...commonProps} isLinkEditable={isLinkEditable} currency={currency} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
     }
-  } catch (error) {
-    console.error("Error rendering component:", error);
-    return <Text>Error rendering component: {error.message}</Text>;
   }
 }
 
