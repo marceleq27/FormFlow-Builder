@@ -191,7 +191,7 @@ function Custom(props: Partial<AutoLayoutProps> & {
                             verticalAlignItems="center"
                             height="fill-parent"
                             minWidth={22}
-                            maxWidth={100}
+                            maxWidth={96}
                         >
                             <AutoLayout
                                 name="LinkIcon"
