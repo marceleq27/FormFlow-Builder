@@ -27,7 +27,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
     ...(contentType === "question" ? [
       createToggleItem("toggleQuestionAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
       createToggleItem("toggleQuestionNumber", showQuestionNumber, imports.icons.QUESTION_NUMBER),
-      createToggleItem("toggleValidationRequired", isValidationRequired, imports.icons.REQUIRE_TOGGLE, "Required")
+      createToggleItem("toggleValidationRequired", isValidationRequired, imports.icons.REQUIRE_TOGGLE)
     ] : []),
     ...(contentType === "answer" ? [
       {
@@ -70,9 +70,13 @@ function Widget(props: Partial<AutoLayoutProps>) {
     return <Text>Error rendering component: {error.message}</Text>;
   }
 
-  function createToggleItem(propertyName, isToggled, icon, tooltipPrefix = "") {
-    const baseTooltip = isToggled ? "Hide" : "Show";
-    const tooltip = tooltipPrefix ? `${tooltipPrefix}: ${isToggled ? "On" : "Off"}` : baseTooltip;
+  function createToggleItem(propertyName, isToggled, icon) {
+    let tooltip;
+    if (propertyName === "toggleValidationRequired") {
+      tooltip = "Required";
+    } else {
+      tooltip = isToggled ? "Hide" : "Show";
+    }
     return {
       itemType: "toggle",
       propertyName,
