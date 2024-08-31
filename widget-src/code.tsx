@@ -156,20 +156,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
             newWidget.y = currentWidget.y + currentWidget.height + 50;
             figma.currentPage.appendChild(newWidget);
 
-            // Create a new connector
-            const connector = figma.createConnector();
-            connector.connectorStart = {
-              endpointNodeId: currentWidget.id,
-              magnet: "BOTTOM",
-            };
-            connector.connectorEnd = {
-              endpointNodeId: newWidget.id,
-              magnet: "TOP",
-            };
-            connector.connectorStartStrokeCap = "NONE";
-            connector.connectorEndStrokeCap = "NONE";
-            connector.strokeColor = figma.util.solidPaint("#000000");
-            figma.currentPage.appendChild(connector);
+            // Remove the creation of the connector
           } else if (contentType === "header") {
             const newWidget = currentWidget.cloneWidget({
               contentType: "answer",
@@ -191,20 +178,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
             newWidget.y = currentWidget.y + currentWidget.height + 50;
             figma.currentPage.appendChild(newWidget);
 
-            // Create a new connector
-            const connector = figma.createConnector();
-            connector.connectorStart = {
-              endpointNodeId: currentWidget.id,
-              magnet: "BOTTOM",
-            };
-            connector.connectorEnd = {
-              endpointNodeId: newWidget.id,
-              magnet: "TOP",
-            };
-            connector.connectorStartStrokeCap = "NONE";
-            connector.connectorEndStrokeCap = "NONE";
-            connector.strokeColor = figma.util.solidPaint("#000000");
-            figma.currentPage.appendChild(connector);
+            // Remove the creation of the connector
           } else {
             // If not a answer or header component, clone the current widget as is
             const newWidget = currentWidget.cloneWidget({
@@ -223,8 +197,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
             newWidget.y = currentWidget.y + currentWidget.height + 50;
             figma.currentPage.appendChild(newWidget);
 
-            // Create connector (same as above)
-            // ... connector code ...
+            // Remove the creation of the connector
           }
         }
       } else if (propertyName === "toggleAdditionalInput") {
