@@ -76,6 +76,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       tooltip = "Required";
     } else if (propertyName === "toggleQuestionAdditionalInput" || propertyName === "toggleAdditionalInput" || propertyName === "toggleHeaderAdditionalInput") {
       tooltip = "Additional information";
+    } else if (propertyName === "toggleQuestionNumber" || propertyName === "toggleHeaderNumber") {
+      tooltip = "Number";
     } else {
       tooltip = isToggled ? "Hide" : "Show";
     }
