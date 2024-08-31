@@ -26,6 +26,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [answerText, setAnswerText] = useSyncedState("answerText", "");
   const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
+  const [showHeaderNumber, setShowHeaderNumber] = useSyncedState("showHeaderNumber", true);
 
   usePropertyMenu(
     [
@@ -124,11 +125,20 @@ function Widget(props: Partial<AutoLayoutProps>) {
           tooltip: showHeaderAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showHeaderAdditionalInput,
           icon: `<svg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
-<path fill-rule='evenodd' clip-rule='evenodd' d='M7 5C7 4.72386 7.22386 4.5 7.5 4.5H13.5C13.7761 4.5 14 4.72386 14 5C14 5.27614 13.7761 5.5 13.5 5.5H7.5C7.22386 5.5 7 5.27614 7 5Z' fill='white'/>
-<path fill-rule='evenodd' clip-rule='evenodd' d='M9 1C9 0.723858 9.22386 0.5 9.5 0.5L13.5 0.5C13.7761 0.5 14 0.723858 14 1C14 1.27614 13.7761 1.5 13.5 1.5L9.5 1.5C9.22386 1.5 9 1.27614 9 1Z' fill='white'/>
-<path fill-rule='evenodd' clip-rule='evenodd' d='M2 9C2 8.72386 2.22386 8.5 2.5 8.5H13.5C13.7761 8.5 14 8.72386 14 9C14 9.27614 13.7761 9.5 13.5 9.5H2.5C2.22386 9.5 2 9.27614 2 9Z' fill='white'/>
-<path fill-rule='evenodd' clip-rule='evenodd' d='M6.60355 1.39645C6.79882 1.59171 6.79882 1.90829 6.60355 2.10355L4.10355 4.60355C3.90829 4.79882 3.59171 4.79882 3.39645 4.60355L0.896447 2.10355C0.701184 1.90829 0.701184 1.59171 0.896447 1.39645C1.09171 1.20118 1.40829 1.20118 1.60355 1.39645L3.75 3.54289L5.89645 1.39645C6.09171 1.20118 6.40829 1.20118 6.60355 1.39645Z' fill='white'/>
-</svg>`
+            <path fill-rule='evenodd' clip-rule='evenodd' d='M7 5C7 4.72386 7.22386 4.5 7.5 4.5H13.5C13.7761 4.5 14 4.72386 14 5C14 5.27614 13.7761 5.5 13.5 5.5H7.5C7.22386 5.5 7 5.27614 7 5Z' fill='white'/>
+            <path fill-rule='evenodd' clip-rule='evenodd' d='M9 1C9 0.723858 9.22386 0.5 9.5 0.5L13.5 0.5C13.7761 0.5 14 0.723858 14 1C14 1.27614 13.7761 1.5 13.5 1.5L9.5 1.5C9.22386 1.5 9 1.27614 9 1Z' fill='white'/>
+            <path fill-rule='evenodd' clip-rule='evenodd' d='M2 9C2 8.72386 2.22386 8.5 2.5 8.5H13.5C13.7761 8.5 14 8.72386 14 9C14 9.27614 13.7761 9.5 13.5 9.5H2.5C2.22386 9.5 2 9.27614 2 9Z' fill='white'/>
+            <path fill-rule='evenodd' clip-rule='evenodd' d='M6.60355 1.39645C6.79882 1.59171 6.79882 1.90829 6.60355 2.10355L4.10355 4.60355C3.90829 4.79882 3.59171 4.79882 3.39645 4.60355L0.896447 2.10355C0.701184 1.90829 0.701184 1.59171 0.896447 1.39645C1.09171 1.20118 1.40829 1.20118 1.60355 1.39645L3.75 3.54289L5.89645 1.39645C6.09171 1.20118 6.40829 1.20118 6.60355 1.39645Z' fill='white'/>
+          </svg>`
+        },
+        {
+          itemType: "toggle",
+          propertyName: "toggleHeaderNumber",
+          tooltip: showHeaderNumber ? "Hide number" : "Show number",
+          isToggled: showHeaderNumber,
+          icon: `<svg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path d='M14.2878 9.15332H10.7878V5.65332H14.2878C14.4425 5.65332 14.5908 5.59186 14.7002 5.48247C14.8096 5.37307 14.8711 5.2247 14.8711 5.06999C14.8711 4.91528 14.8096 4.7669 14.7002 4.65751C14.5908 4.54811 14.4425 4.48665 14.2878 4.48665H10.7878V0.986654C10.7878 0.831944 10.7263 0.683571 10.6169 0.574175C10.5075 0.464779 10.3591 0.40332 10.2044 0.40332C10.0497 0.40332 9.90134 0.464779 9.79195 0.574175C9.68255 0.683571 9.62109 0.831944 9.62109 0.986654V4.48665H6.12109V0.986654C6.12109 0.831944 6.05964 0.683571 5.95024 0.574175C5.84084 0.464779 5.69247 0.40332 5.53776 0.40332C5.38305 0.40332 5.23468 0.464779 5.12528 0.574175C5.01589 0.683571 4.95443 0.831944 4.95443 0.986654V4.48665H1.45443C1.29972 4.48665 1.15134 4.54811 1.04195 4.65751C0.932552 4.7669 0.871094 4.91528 0.871094 5.06999C0.871094 5.2247 0.932552 5.37307 1.04195 5.48247C1.15134 5.59186 1.29972 5.65332 1.45443 5.65332H4.95443V9.15332H1.45443C1.29972 9.15332 1.15134 9.21478 1.04195 9.32417C0.932552 9.43357 0.871094 9.58194 0.871094 9.73665C0.871094 9.89136 0.932552 10.0397 1.04195 10.1491C1.15134 10.2585 1.29972 10.32 1.45443 10.32H4.95443V13.82C4.95443 13.9747 5.01589 14.1231 5.12528 14.2325C5.23468 14.3419 5.38305 14.4033 5.53776 14.4033C5.69247 14.4033 5.84084 14.3419 5.95024 14.2325C6.05964 14.1231 6.12109 13.9747 6.12109 13.82V10.32H9.62109V13.82C9.62109 13.9747 9.68255 14.1231 9.79195 14.2325C9.90134 14.3419 10.0497 14.4033 10.2044 14.4033C10.3591 14.4033 10.5075 14.3419 10.6169 14.2325C10.7263 14.1231 10.7878 13.9747 10.7878 13.82V10.32H14.2878C14.4425 10.32 14.5908 10.2585 14.7002 10.1491C14.8096 10.0397 14.8711 9.89136 14.8711 9.73665C14.8711 9.58194 14.8096 9.43357 14.7002 9.32417C14.5908 9.21478 14.4425 9.15332 14.2878 9.15332ZM6.12109 9.15332V5.65332H9.62109V9.15332H6.12109Z' fill='white'/>
+          </svg>`
         }
       ] : []),
       {
@@ -219,6 +229,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         setShowAdditionalInput(!showAdditionalInput);
       } else if (propertyName === "toggleQuestionNumber") {
         setShowQuestionNumber(!showQuestionNumber);
+      } else if (propertyName === "toggleHeaderNumber") {
+        setShowHeaderNumber(!showHeaderNumber);
       }
     }
   );
@@ -229,7 +241,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   try {
     if (contentType === "header") {
       console.log("Rendering Header component");
-      return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} />;
+      return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else if (contentType === "question") {
       console.log("Rendering Question component");
       return <Question {...props} showAdditionalInput={showAdditionalInput} showQuestionNumber={showQuestionNumber} />;

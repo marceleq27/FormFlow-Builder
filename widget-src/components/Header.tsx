@@ -1,6 +1,6 @@
 const { useSyncedState, AutoLayout, Input, Text } = figma.widget;
 
-function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean }) {
+function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean, showHeaderNumber?: boolean }) {
     const [headerText, setHeaderText] = useSyncedState("headerText", "");
     const [numberInputText, setNumberInputText] = useSyncedState("numberInputText", "");
     const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
@@ -18,43 +18,45 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                 name="badge-container"
                 overflow="visible"
                 spacing={10}
-                width={77}
-                horizontalAlignItems="end"
+                width={props.showHeaderNumber ? 65 : "hug-contents"}
+                horizontalAlignItems={props.showHeaderNumber ? "end" : "center"}
             >
-                <AutoLayout
-                    name="number"
-                    fill="#7C3AED"
-                    height={29}
-                    cornerRadius={{
-                        topLeft: 8,
-                        topRight: 8,
-                        bottomRight: 0,
-                        bottomLeft: 0,
-                    }}
-                    overflow="visible"
-                    spacing={6}
-                    padding={{
-                        vertical: 4,
-                        horizontal: 8,
-                    }}
-                    horizontalAlignItems="center"
-                    verticalAlignItems="center"
-                >
-                    <Input
-                        name="numberInput"
-                        value={numberInputText}
-                        placeholder="1"
-                        onTextEditEnd={(event) => setNumberInputText(event.characters)}
-                        fill="#FFFFFF"
-                        lineHeight="150%"
-                        fontFamily="Inter"
-                        fontSize={14}
-                        letterSpacing={-0.154}
-                        fontWeight={600}
-                        width={32}
-                        horizontalAlignText="center"
-                    />
-                </AutoLayout>
+                {props.showHeaderNumber && (
+                    <AutoLayout
+                        name="number"
+                        fill="#7C3AED"
+                        height={29}
+                        cornerRadius={{
+                            topLeft: 8,
+                            topRight: 8,
+                            bottomRight: 0,
+                            bottomLeft: 0,
+                        }}
+                        overflow="visible"
+                        spacing={6}
+                        padding={{
+                            vertical: 4,
+                            horizontal: 8,
+                        }}
+                        horizontalAlignItems="center"
+                        verticalAlignItems="center"
+                    >
+                        <Input
+                            name="numberInput"
+                            value={numberInputText}
+                            placeholder="1"
+                            onTextEditEnd={(event) => setNumberInputText(event.characters)}
+                            fill="#FFFFFF"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={14}
+                            letterSpacing={-0.154}
+                            fontWeight={600}
+                            width={32}
+                            horizontalAlignText="center"
+                        />
+                    </AutoLayout>
+                )}
                 <AutoLayout
                     name="label"
                     fill="#7C3AED"
