@@ -11,6 +11,7 @@ import Datepicker from './components/answertype/Datepicker';
 import Fileupload from './components/answertype/Fileupload';
 import Slider from './components/answertype/Slider';
 import Custom from './components/answertype/Custom';
+import Question from './components/Question';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -33,6 +34,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         tooltip: "Select Content Type",
         options: [
           { option: "header", label: "Header" },
+          { option: "question", label: "Question" },
           { option: "answer", label: "Answer" },
         ],
         selectedOption: contentType,
@@ -200,6 +202,9 @@ function Widget(props: Partial<AutoLayoutProps>) {
     if (contentType === "header") {
       console.log("Rendering Header component");
       return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} />;
+    } else if (contentType === "question") {
+      console.log("Rendering Question component");
+      return <Question {...props} showAdditionalInput={showAdditionalInput} />;
     } else if (contentType === "answer") {
       console.log("Rendering Answer component");
       switch (answerType) {
