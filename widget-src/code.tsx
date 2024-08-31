@@ -1,23 +1,4 @@
-import {
-  Header,
-  AnswerTemplate,
-  Input,
-  Radio,
-  Dropdown,
-  Checkbox,
-  TextArea,
-  Currency,
-  PercentageInput,
-  Datepicker,
-  Fileupload,
-  Slider,
-  Custom,
-  Question,
-  icons,
-  contentTypeOptions,
-  answerTypeOptions,
-  currencyOptions
-} from './imports';
+import * as imports from './imports';
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -40,7 +21,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         itemType: "dropdown",
         propertyName: "contentType",
         tooltip: "Select Content Type",
-        options: contentTypeOptions,
+        options: imports.contentTypeOptions,
         selectedOption: contentType,
       },
       ...(contentType === "question" ? [
@@ -49,14 +30,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "toggleQuestionAdditionalInput",
           tooltip: showAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showAdditionalInput,
-          icon: icons.ADDITIONAL_INPUT
+          icon: imports.icons.ADDITIONAL_INPUT
         },
         {
           itemType: "toggle",
           propertyName: "toggleQuestionNumber",
           tooltip: showQuestionNumber ? "Hide number" : "Show number",
           isToggled: showQuestionNumber,
-          icon: icons.QUESTION_NUMBER
+          icon: imports.icons.QUESTION_NUMBER
         }
       ] : []),
       ...(contentType === "answer" ? [
@@ -64,14 +45,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
           itemType: "dropdown",
           propertyName: "answerType",
           tooltip: "Select Answer Type",
-          options: answerTypeOptions,
+          options: imports.answerTypeOptions,
           selectedOption: answerType,
         },
         ...(answerType === "currency" ? [{
           itemType: "dropdown",
           propertyName: "currency",
           tooltip: "Select Currency",
-          options: currencyOptions,
+          options: imports.currencyOptions,
           selectedOption: currency,
         }] : []),
         {
@@ -79,14 +60,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "toggleAdditionalInput",
           tooltip: showAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showAdditionalInput,
-          icon: icons.ADDITIONAL_INPUT
+          icon: imports.icons.ADDITIONAL_INPUT
         },
         ...(answerType === "custom" ? [{
           itemType: "toggle",
           propertyName: "toggleLinkEdit",
           tooltip: isLinkEditable ? "Save link" : "Edit link",
           isToggled: isLinkEditable,
-          icon: icons.EDIT_LINK
+          icon: imports.icons.EDIT_LINK
         }] : [])
       ] : []),
       ...(contentType === "header" ? [
@@ -95,14 +76,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
           propertyName: "toggleHeaderAdditionalInput",
           tooltip: showHeaderAdditionalInput ? "Hide additional" : "Show additional",
           isToggled: showHeaderAdditionalInput,
-          icon: icons.ADDITIONAL_INPUT
+          icon: imports.icons.ADDITIONAL_INPUT
         },
         {
           itemType: "toggle",
           propertyName: "toggleHeaderNumber",
           tooltip: showHeaderNumber ? "Hide number" : "Show number",
           isToggled: showHeaderNumber,
-          icon: icons.HEADER_NUMBER
+          icon: imports.icons.HEADER_NUMBER
         }
       ] : []),
       {
@@ -112,14 +93,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
         itemType: "action",
         propertyName: "addWidget",
         tooltip: "Add",
-        icon: icons.ADD_WIDGET
+        icon: imports.icons.ADD_WIDGET
       },
       {
         itemType: "link",
         propertyName: "guide",
         tooltip: "Guide",
         href: "https://x.com/home",
-        icon: icons.GUIDE
+        icon: imports.icons.GUIDE
       },
     ],
     ({ propertyName, propertyValue }) => {
@@ -200,35 +181,35 @@ function Widget(props: Partial<AutoLayoutProps>) {
   try {
     if (contentType === "header") {
       console.log("Rendering Header component");
-      return <Header {...props} showAdditionalInput={showHeaderAdditionalInput} showHeaderNumber={showHeaderNumber} />;
+      return <imports.Header {...props} showAdditionalInput={showHeaderAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else if (contentType === "question") {
       console.log("Rendering Question component");
-      return <Question {...props} showAdditionalInput={showAdditionalInput} showQuestionNumber={showQuestionNumber} />;
+      return <imports.Question {...props} showAdditionalInput={showAdditionalInput} showQuestionNumber={showQuestionNumber} />;
     } else if (contentType === "answer") {
       console.log("Rendering Answer component");
       switch (answerType) {
         case "input":
-          return <Input {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Input {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "radio":
-          return <Radio {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Radio {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "dropdown":
-          return <Dropdown {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Dropdown {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "checkbox":
-          return <Checkbox {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Checkbox {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "textarea":
-          return <TextArea {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.TextArea {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "currency":
-          return <Currency {...props} showAdditionalInput={showAdditionalInput} currency={currency} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Currency {...props} showAdditionalInput={showAdditionalInput} currency={currency} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "percentageinput":
-          return <PercentageInput {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.PercentageInput {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "datepicker":
-          return <Datepicker {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Datepicker {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "fileupload":
-          return <Fileupload {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Fileupload {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "slider":
-          return <Slider {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Slider {...props} showAdditionalInput={showAdditionalInput} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         case "custom":
-          return <Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
+          return <imports.Custom {...props} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} answerText={answerText} setAnswerText={setAnswerText} additionalInputText={additionalInputText} setAdditionalInputText={setAdditionalInputText} />;
         default:
           console.log("Error: Invalid answer type");
           return <Text>Error: Invalid answer type</Text>;
