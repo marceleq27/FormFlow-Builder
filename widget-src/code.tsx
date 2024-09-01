@@ -153,7 +153,13 @@ function Widget(props: Partial<AutoLayoutProps>) {
   function addWidget() {
     const currentWidget = figma.currentPage.selection[0] as WidgetNode;
     if (currentWidget && currentWidget.type === "WIDGET") {
-      const newContentType = contentType === "header" ? "question" : contentType;
+      let newContentType = contentType;
+      if (contentType === "header") {
+        newContentType = "question";
+      } else if (contentType === "question") {
+        newContentType = "answer";
+      }
+
       const newWidget = currentWidget.cloneWidget({
         contentType: newContentType,
         answerType,
