@@ -56,6 +56,10 @@ function Widget(props: Partial<AutoLayoutProps>) {
       createToggleItem("toggleHeaderAdditionalInput", showHeaderAdditionalInput, imports.icons.ADDITIONAL_INPUT),
       createToggleItem("toggleHeaderNumber", showHeaderNumber, imports.icons.HEADER_NUMBER)
     ] : []),
+    // Add these lines
+    ...(contentType === "devnote" || contentType === "note" ? [
+      createToggleItem("toggleAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT)
+    ] : []),
     { itemType: "separator" },
     createActionItem("addWidget", "Add", imports.icons.ADD_WIDGET),
     {
@@ -126,7 +130,13 @@ function Widget(props: Partial<AutoLayoutProps>) {
       answerType: () => handleAnswerTypeChange(propertyValue),
       currency: () => setCurrency(propertyValue), // Add this line
       addWidget: addWidget,
-      toggleAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
+      toggleAdditionalInput: () => {
+        if (contentType === "devnote" || contentType === "note" || contentType === "answer" || contentType === "question") {
+          setShowAdditionalInput(!showAdditionalInput);
+        } else if (contentType === "header") {
+          setShowHeaderAdditionalInput(!showHeaderAdditionalInput);
+        }
+      },
       toggleLinkEdit: () => setIsLinkEditable(!isLinkEditable),
       toggleHeaderAdditionalInput: () => setShowHeaderAdditionalInput(!showHeaderAdditionalInput),
       toggleQuestionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
@@ -281,9 +291,9 @@ function Widget(props: Partial<AutoLayoutProps>) {
       }
       return <AnswerComponent {...commonProps} isLinkEditable={isLinkEditable} currency={currency} />;
     } else if (contentType === "devnote") {
-      return <imports.DevNote {...commonProps} />;
+      return <imports.DevNote {...commonProps} showAdditionalInput={showAdditionalInput} />;
     } else if (contentType === "note") {
-      return <imports.Note {...commonProps} />;
+      return <imports.Note {...commonProps} showAdditionalInput={showAdditionalInput} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
