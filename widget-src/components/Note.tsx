@@ -21,7 +21,7 @@ function Note(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean 
             >
                 <AutoLayout
                     name="label"
-                    fill="#10B981"
+                    fill="#2C89EE"
                     cornerRadius={{
                         topLeft: 8,
                         topRight: 8,
@@ -46,7 +46,7 @@ function Note(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean 
                         letterSpacing={-0.154}
                         fontWeight={600}
                     >
-                        Note
+                        Note / Instructions
                     </Text>
                 </AutoLayout>
             </AutoLayout>
@@ -69,7 +69,7 @@ function Note(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean 
                 width={372}
             >
                 <AutoLayout
-                    name="devnote-content"
+                    name="note-content"
                     fill="#FFF"
                     stroke="#00000014"
                     strokeWidth={1}
@@ -90,7 +90,7 @@ function Note(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean 
                         width={306}
                         lineHeight="150%"
                         fontFamily="Inter"
-                        fontSize={18}
+                        fontSize={14}
                         letterSpacing={-0.198}
                         fontWeight={500}
                     />
