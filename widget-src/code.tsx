@@ -15,6 +15,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
   const [showHeaderNumber, setShowHeaderNumber] = useSyncedState("showHeaderNumber", true);
   const [isValidationRequired, setIsValidationRequired] = useSyncedState("isValidationRequired", true);
+  const [connectorColor, setConnectorColor] = useSyncedState("connectorColor", "#000000");
 
   const propertyMenuItems = [
     {
@@ -55,6 +56,20 @@ function Widget(props: Partial<AutoLayoutProps>) {
     ] : []),
     { itemType: "separator" },
     createActionItem("addWidget", "Add", imports.icons.ADD_WIDGET),
+    {
+      itemType: "color-selector",
+      propertyName: "connectorColor",
+      tooltip: "Connector Color",
+      options: [
+        { option: "#000000", tooltip: "Black" },
+        { option: "#FF0000", tooltip: "Red" },
+        { option: "#00FF00", tooltip: "Green" },
+        { option: "#0000FF", tooltip: "Blue" },
+        { option: "#FFFF00", tooltip: "Yellow" },
+        // Add more color options as needed
+      ],
+      selectedOption: connectorColor,
+    },
     createLinkItem("guide", "Guide", "https://x.com/home", imports.icons.GUIDE)
   ];
 
@@ -112,7 +127,11 @@ function Widget(props: Partial<AutoLayoutProps>) {
       toggleQuestionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
       toggleQuestionNumber: () => setShowQuestionNumber(!showQuestionNumber),
       toggleHeaderNumber: () => setShowHeaderNumber(!showHeaderNumber),
-      toggleValidationRequired: () => setIsValidationRequired(!isValidationRequired)
+      toggleValidationRequired: () => setIsValidationRequired(!isValidationRequired),
+      connectorColor: () => {
+        setConnectorColor(propertyValue);
+        updateConnectorColors(propertyValue);
+      },
     };
 
     const action = actions[propertyName];
@@ -197,6 +216,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         };
         connector.connectorStartStrokeCap = 'NONE'; // Set start stroke cap to NONE
         connector.connectorEndStrokeCap = 'NONE'; // Set end stroke cap to NONE
+        connector.strokes = [{ type: 'SOLID', color: hexToRgb(connectorColor) }];
         figma.currentPage.appendChild(connector);
       }
     }
@@ -227,6 +247,26 @@ function Widget(props: Partial<AutoLayoutProps>) {
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
+    }
+  }
+
+  function hexToRgb(hex: string): { r: number; g: number; b: number } {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    return { r, g, b };
+  }
+
+  function updateConnectorColors(newColor: string) {
+    const currentWidget = figma.currentPage.selection[0] as WidgetNode;
+    if (currentWidget && currentWidget.type === "WIDGET") {
+      const connectors = figma.currentPage.findAll(node => node.type === "CONNECTOR") as ConnectorNode[];
+      connectors.forEach(connector => {
+        if (connector.connectorStart.endpointNodeId === currentWidget.id ||
+          connector.connectorEnd.endpointNodeId === currentWidget.id) {
+          connector.strokes = [{ type: 'SOLID', color: hexToRgb(newColor) }];
+        }
+      });
     }
   }
 }
