@@ -17,6 +17,8 @@ import { icons } from './icons';
 import { contentTypeOptions } from './constants/contentTypeOptions';
 import { answerTypeOptions } from './constants/answerTypeOptions';
 import { currencyOptions } from './constants/currencyOptions';
+import DevNote from './components/DevNote';
+import Note from './components/Note';
 
 export {
     Header,
@@ -37,5 +39,7 @@ export {
     icons,
     contentTypeOptions,
     answerTypeOptions,
-    currencyOptions
+    currencyOptions,
+    DevNote,
+    Note
 };

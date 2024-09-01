@@ -274,13 +274,16 @@ function Widget(props: Partial<AutoLayoutProps>) {
     } else if (contentType === "question") {
       return <imports.Question {...commonProps} showQuestionNumber={showQuestionNumber} isValidationRequired={isValidationRequired} />;
     } else if (contentType === "answer") {
-      // Change this line
       const AnswerComponent = imports[answerType];
       if (typeof AnswerComponent !== 'function') {
         console.error(`Invalid answer type: ${answerType}`);
         return <Text>Error: Invalid answer type</Text>;
       }
       return <AnswerComponent {...commonProps} isLinkEditable={isLinkEditable} currency={currency} />;
+    } else if (contentType === "devnote") {
+      return <imports.DevNote {...commonProps} />;
+    } else if (contentType === "note") {
+      return <imports.Note {...commonProps} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
