@@ -195,6 +195,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
           endpointNodeId: newWidget.id,
           magnet: 'TOP'
         };
+        connector.connectorStartStrokeCap = 'NONE'; // Set start stroke cap to NONE
+        connector.connectorEndStrokeCap = 'NONE'; // Set end stroke cap to NONE
         figma.currentPage.appendChild(connector);
       }
     }
