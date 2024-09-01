@@ -17,6 +17,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [isValidationRequired, setIsValidationRequired] = useSyncedState("isValidationRequired", true);
   const [connectorColor, setConnectorColor] = useSyncedState("connectorColor", "#334155");
 
+  console.log("Current answerType:", answerType);
+
   const propertyMenuItems = [
     {
       itemType: "dropdown",
@@ -46,7 +48,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         selectedOption: currency,
       }] : []),
       createToggleItem("toggleAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
-      ...(answerType === "custom" ? [
+      ...(answerType === "Custom" ? [
         createToggleItem("toggleLinkEdit", isLinkEditable, imports.icons.EDIT_LINK)
       ] : [])
     ] : []),
@@ -73,6 +75,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
     { itemType: "separator" },
     createLinkItem("guide", "Guide", "https://x.com/home", imports.icons.GUIDE)
   ];
+
+  console.log("Property menu items:", propertyMenuItems);
 
   usePropertyMenu(propertyMenuItems, handlePropertyChange);
 
@@ -151,6 +155,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       replaceWidget(currentWidget, newWidget);
     }
     setAnswerType(newAnswerType);
+    console.log("Updated answerType:", newAnswerType);
   }
 
   function updateWidgetPluginData(widget, newAnswerType) {
@@ -239,7 +244,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <imports.Question {...commonProps} showQuestionNumber={showQuestionNumber} isValidationRequired={isValidationRequired} />;
     } else if (contentType === "answer") {
       // Change this line
-      const AnswerComponent = imports[answerType.charAt(0).toUpperCase() + answerType.slice(1).replace(/\s+/g, '')];
+      const AnswerComponent = imports[answerType];
       if (typeof AnswerComponent !== 'function') {
         console.error(`Invalid answer type: ${answerType}`);
         return <Text>Error: Invalid answer type</Text>;
