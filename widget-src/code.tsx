@@ -154,7 +154,21 @@ function Widget(props: Partial<AutoLayoutProps>) {
     const currentWidget = figma.currentPage.selection[0] as WidgetNode;
     if (currentWidget && currentWidget.type === "WIDGET") {
       const newWidget = currentWidget.cloneWidget({
-        contentType, answerType, answerText: "", additionalInputText: "",
+        contentType,
+        answerType,
+        answerText: "",
+        additionalInputText: "",
+        // Reset specific state values for Header and Question components
+        ...(contentType === "header" && {
+          headerText: "",
+          numberInputText: "",
+          additionalInputText: ""
+        }),
+        ...(contentType === "question" && {
+          questionText: "",
+          numberInputText: "",
+          additionalInputText: ""
+        })
       });
 
       updateWidgetPluginData(newWidget, answerType);
