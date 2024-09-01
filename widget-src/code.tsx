@@ -158,6 +158,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
         newContentType = "question";
       } else if (contentType === "question") {
         newContentType = "answer";
+      } else if (contentType === "answer") {
+        newContentType = "question"; // Add a Question component if the current content type is answer
       }
 
       const newWidget = currentWidget.cloneWidget({
