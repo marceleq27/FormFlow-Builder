@@ -181,6 +181,20 @@ function Widget(props: Partial<AutoLayoutProps>) {
       updateWidgetPluginData(newWidget, answerType);
       newWidget.y = currentWidget.y + currentWidget.height + 50;
       figma.currentPage.appendChild(newWidget);
+
+      // Create a connector between the current widget and the new widget
+      if (newContentType === "question") {
+        const connector = figma.createConnector();
+        connector.connectorStart = {
+          endpointNodeId: currentWidget.id,
+          magnet: 'AUTO'
+        };
+        connector.connectorEnd = {
+          endpointNodeId: newWidget.id,
+          magnet: 'AUTO'
+        };
+        figma.currentPage.appendChild(connector);
+      }
     }
   }
 
