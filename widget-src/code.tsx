@@ -14,7 +14,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
   const [showHeaderNumber, setShowHeaderNumber] = useSyncedState("showHeaderNumber", true);
-  const [isValidationRequired, setIsValidationRequired] = useSyncedState("isValidationRequired", false);
+  const [isValidationRequired, setIsValidationRequired] = useSyncedState("isValidationRequired", true);
 
   const propertyMenuItems = [
     {
@@ -153,18 +153,19 @@ function Widget(props: Partial<AutoLayoutProps>) {
   function addWidget() {
     const currentWidget = figma.currentPage.selection[0] as WidgetNode;
     if (currentWidget && currentWidget.type === "WIDGET") {
+      const newContentType = contentType === "header" ? "question" : contentType;
       const newWidget = currentWidget.cloneWidget({
-        contentType,
+        contentType: newContentType,
         answerType,
         answerText: "",
         additionalInputText: "",
         // Reset specific state values for Header and Question components
-        ...(contentType === "header" && {
+        ...(newContentType === "header" && {
           headerText: "",
           numberInputText: "",
           additionalInputText: ""
         }),
-        ...(contentType === "question" && {
+        ...(newContentType === "question" && {
           questionText: "",
           numberInputText: "",
           additionalInputText: ""
