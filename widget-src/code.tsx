@@ -178,7 +178,12 @@ function Widget(props: Partial<AutoLayoutProps>) {
     } else if (contentType === "question") {
       return <imports.Question {...commonProps} showQuestionNumber={showQuestionNumber} isValidationRequired={isValidationRequired} />;
     } else if (contentType === "answer") {
-      const AnswerComponent = imports[answerType.charAt(0).toUpperCase() + answerType.slice(1)];
+      // Change this line
+      const AnswerComponent = imports[answerType.charAt(0).toUpperCase() + answerType.slice(1).replace(/\s+/g, '')];
+      if (typeof AnswerComponent !== 'function') {
+        console.error(`Invalid answer type: ${answerType}`);
+        return <Text>Error: Invalid answer type</Text>;
+      }
       return <AnswerComponent {...commonProps} isLinkEditable={isLinkEditable} currency={currency} />;
     } else {
       console.log("Error: Invalid content type");
