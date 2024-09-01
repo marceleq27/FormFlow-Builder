@@ -9,5 +9,6 @@ export const answerTypeOptions = [
     { option: "datepicker", label: "Datepicker" },
     { option: "fileupload", label: "File Upload" },
     { option: "slider", label: "Slider" },
+    { option: "signature", label: "Signature" },
     { option: "custom", label: "Custom" },
 ];

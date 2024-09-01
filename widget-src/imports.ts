@@ -10,6 +10,7 @@ import PercentageInput from './components/answertype/PercentageInput';
 import Datepicker from './components/answertype/Datepicker';
 import Fileupload from './components/answertype/Fileupload';
 import Slider from './components/answertype/Slider';
+import Signature from './components/answertype/Signature';
 import Custom from './components/answertype/Custom';
 import Question from './components/Question';
 import { icons } from './icons';
@@ -30,6 +31,7 @@ export {
     Datepicker,
     Fileupload,
     Slider,
+    Signature,
     Custom,
     Question,
     icons,
