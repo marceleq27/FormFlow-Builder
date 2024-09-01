@@ -21,7 +21,7 @@ function DevNote(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
             >
                 <AutoLayout
                     name="label"
-                    fill="#3B82F6"
+                    fill="#178F51"
                     cornerRadius={{
                         topLeft: 8,
                         topRight: 8,
@@ -63,14 +63,14 @@ function DevNote(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                     blur: 3.2,
                     showShadowBehindNode: false,
                 }}
-                fill="#FFF"
+                fill="#2C2C2C"
                 cornerRadius={12}
                 direction="vertical"
                 width={372}
             >
                 <AutoLayout
                     name="devnote-content"
-                    fill="#FFF"
+                    fill="#2C2C2C"
                     stroke="#00000014"
                     strokeWidth={1}
                     direction="vertical"
@@ -86,11 +86,11 @@ function DevNote(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                         value={devNoteText}
                         placeholder="Dev Note..."
                         onTextEditEnd={(event) => setDevNoteText(event.characters)}
-                        fill="#1E1E1E"
+                        fill="#FFF"
                         width={306}
                         lineHeight="150%"
                         fontFamily="Inter"
-                        fontSize={18}
+                        fontSize={14}
                         letterSpacing={-0.198}
                         fontWeight={500}
                     />
