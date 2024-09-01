@@ -71,7 +71,7 @@ function DevNote(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                 <AutoLayout
                     name="devnote-content"
                     fill="#2C2C2C"
-                    stroke="#00000014"
+                    stroke="#FFFFFF14"
                     strokeWidth={1}
                     direction="vertical"
                     spacing={12}
@@ -98,9 +98,7 @@ function DevNote(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                 {props.showAdditionalInput && (
                     <AutoLayout
                         name="additional"
-                        fill="#FFF"
-                        strokeWidth={2}
-                        strokeAlign="outside"
+                        fill="#2C2C2C"
                         direction="vertical"
                         spacing={8}
                         padding={{
@@ -114,7 +112,7 @@ function DevNote(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                             value={additionalInputText}
                             placeholder="Additional information"
                             onTextEditEnd={(event) => setAdditionalInputText(event.characters)}
-                            fill="#1E1E1E9E"
+                            fill="#FFFFFF9E"
                             width="fill-parent"
                             lineHeight="150%"
                             fontFamily="Inter"
