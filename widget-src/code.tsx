@@ -40,7 +40,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
         options: imports.answerTypeOptions,
         selectedOption: answerType,
       },
-      ...(answerType === "currency" ? [{
+      ...(answerType === "Currency" ? [{
         itemType: "dropdown",
         propertyName: "currency",
         tooltip: "Select Currency",
@@ -124,11 +124,11 @@ function Widget(props: Partial<AutoLayoutProps>) {
     const actions = {
       contentType: () => setContentType(propertyValue),
       answerType: () => handleAnswerTypeChange(propertyValue),
+      currency: () => setCurrency(propertyValue), // Add this line
       addWidget: addWidget,
       toggleAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
       toggleLinkEdit: () => setIsLinkEditable(!isLinkEditable),
       toggleHeaderAdditionalInput: () => setShowHeaderAdditionalInput(!showHeaderAdditionalInput),
-      currency: () => setCurrency(propertyValue),
       toggleQuestionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
       toggleQuestionNumber: () => setShowQuestionNumber(!showQuestionNumber),
       toggleHeaderNumber: () => setShowHeaderNumber(!showHeaderNumber),
