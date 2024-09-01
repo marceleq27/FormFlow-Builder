@@ -70,6 +70,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       ],
       selectedOption: connectorColor,
     },
+    { itemType: "separator" },
     createLinkItem("guide", "Guide", "https://x.com/home", imports.icons.GUIDE)
   ];
 
