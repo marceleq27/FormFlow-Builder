@@ -152,7 +152,38 @@ function Widget(props: Partial<AutoLayoutProps>) {
       });
 
       updateWidgetPluginData(newWidget, newAnswerType);
-      replaceWidget(currentWidget, newWidget);
+
+      // Find all connectors attached to the current widget
+      const connectors = figma.currentPage.findAll(node =>
+        node.type === "CONNECTOR" &&
+        (node.connectorStart.endpointNodeId === currentWidget.id ||
+          node.connectorEnd.endpointNodeId === currentWidget.id)
+      ) as ConnectorNode[];
+
+      // Replace the widget
+      newWidget.x = currentWidget.x;
+      newWidget.y = currentWidget.y;
+      figma.currentPage.appendChild(newWidget);
+      figma.currentPage.selection = [newWidget];
+
+      // Update connectors to point to the new widget
+      connectors.forEach(connector => {
+        if (connector.connectorStart.endpointNodeId === currentWidget.id) {
+          connector.connectorStart = {
+            ...connector.connectorStart,
+            endpointNodeId: newWidget.id
+          };
+        }
+        if (connector.connectorEnd.endpointNodeId === currentWidget.id) {
+          connector.connectorEnd = {
+            ...connector.connectorEnd,
+            endpointNodeId: newWidget.id
+          };
+        }
+      });
+
+      // Remove the old widget
+      currentWidget.remove();
     }
     setAnswerType(newAnswerType);
     console.log("Updated answerType:", newAnswerType);
