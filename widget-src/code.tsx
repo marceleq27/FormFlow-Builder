@@ -15,7 +15,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
   const [showQuestionNumber, setShowQuestionNumber] = useSyncedState("showQuestionNumber", true);
   const [showHeaderNumber, setShowHeaderNumber] = useSyncedState("showHeaderNumber", true);
   const [isValidationRequired, setIsValidationRequired] = useSyncedState("isValidationRequired", true);
-  const [connectorColor, setConnectorColor] = useSyncedState("connectorColor", "#000000");
+  const [connectorColor, setConnectorColor] = useSyncedState("connectorColor", "#334155");
 
   const propertyMenuItems = [
     {
@@ -61,11 +61,11 @@ function Widget(props: Partial<AutoLayoutProps>) {
       propertyName: "connectorColor",
       tooltip: "Connector Color",
       options: [
-        { option: "#000000", tooltip: "Black" },
-        { option: "#FF0000", tooltip: "Red" },
-        { option: "#00FF00", tooltip: "Green" },
-        { option: "#0000FF", tooltip: "Blue" },
-        { option: "#FFFF00", tooltip: "Yellow" },
+        { option: "#334155", tooltip: "Black" },
+        { option: "#B91C1C", tooltip: "Red" },
+        { option: "#047857", tooltip: "Green" },
+        { option: "#3B82F6", tooltip: "Blue" },
+        { option: "#8B5CF6", tooltip: "Purple" },
         // Add more color options as needed
       ],
       selectedOption: connectorColor,
@@ -200,7 +200,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       });
 
       updateWidgetPluginData(newWidget, answerType);
-      newWidget.y = currentWidget.y + currentWidget.height + 50;
+      newWidget.y = currentWidget.y + currentWidget.height + 100;
       figma.currentPage.appendChild(newWidget);
 
       // Create a connector between the current widget and the new widget
