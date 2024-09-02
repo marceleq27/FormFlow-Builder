@@ -326,7 +326,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
     } else if (contentType === "section") { // Add this block
       return <Section {...commonProps} showAdditionalInput={showAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else if (contentType === "customcomponent") { // Add this block
-      return <imports.CustomComponent {...commonProps} showAdditionalInput={showAdditionalInput} showHeaderNumber={showHeaderNumber} />;
+      return <imports.CustomComponent {...commonProps} showAdditionalInput={showAdditionalInput} isLinkEditable={isLinkEditable} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;

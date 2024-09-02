@@ -1,16 +1,9 @@
 const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
-function CustomComponent(props: Partial<AutoLayoutProps> & {
-    showAdditionalInput: boolean,
-    isLinkEditable: boolean,
-    answerText: string,
-    setAnswerText: (text: string) => void,
-    additionalInputText: string,
-    setAdditionalInputText: (text: string) => void
-}) {
+function CustomComponent(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean, isLinkEditable?: boolean, }) {
     const [linkText, setLinkText] = useSyncedState("linkText", "");
-
-    console.log("Rendering CustomComponent with props:", props);
+    const [customComponentText, setCustomComponentText] = useSyncedState("customComponentText", "");
+    const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
 
     const handleLinkClick = () => {
         if (linkText) {
@@ -25,10 +18,10 @@ function CustomComponent(props: Partial<AutoLayoutProps> & {
 
     return (
         <AutoLayout
-            name="Answer"
+            name="CustomComponent"
             overflow="visible"
             direction="vertical"
-            width={200}
+            width={370}
             horizontalAlignItems="center"
         >
             <AutoLayout
@@ -40,7 +33,7 @@ function CustomComponent(props: Partial<AutoLayoutProps> & {
             >
                 <AutoLayout
                     name="label"
-                    fill="#D0FAE5"
+                    fill="#7C3AED"
                     cornerRadius={{
                         topLeft: 8,
                         topRight: 8,
@@ -57,8 +50,8 @@ function CustomComponent(props: Partial<AutoLayoutProps> & {
                     verticalAlignItems="center"
                 >
                     <Text
-                        name="Answer"
-                        fill="#1E5C49"
+                        name="CustomComponent"
+                        fill="#fff"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={14}
@@ -67,7 +60,7 @@ function CustomComponent(props: Partial<AutoLayoutProps> & {
                         }
                         fontWeight={600}
                     >
-                        Answer
+                        Custom
                     </Text>
                 </AutoLayout>
             </AutoLayout>
@@ -104,10 +97,10 @@ function CustomComponent(props: Partial<AutoLayoutProps> & {
                     width="fill-parent"
                 >
                     <Input
-                        name="custom"
-                        value={props.answerText}
+                        name="Input"
+                        value={customComponentText}
                         placeholder="Label..."
-                        onTextEditEnd={(event) => props.setAnswerText(event.characters)}
+                        onTextEditEnd={(event) => setCustomComponentText(event.characters)}
                         fill="#1E1E1E"
                         width="fill-parent"
                         lineHeight="150%"
