@@ -20,6 +20,7 @@ import { currencyOptions } from './constants/currencyOptions';
 import DevNote from './components/DevNote';
 import Note from './components/Note';
 import Section from './components/Section';
+import CustomComponent from './components/answertype/CustomComponent';
 
 export {
     Header,
@@ -43,5 +44,6 @@ export {
     currencyOptions,
     DevNote,
     Note,
-    Section
+    Section,
+    CustomComponent
 };

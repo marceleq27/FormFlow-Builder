@@ -53,6 +53,10 @@ function Widget(props: Partial<AutoLayoutProps>) {
         createToggleItem("toggleLinkEdit", isLinkEditable, imports.icons.EDIT_LINK)
       ] : [])
     ] : []),
+    ...(contentType === "customcomponent" ? [
+      createToggleItem("toggleCustomComponentAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
+      createToggleItem("toggleLinkEdit", isLinkEditable, imports.icons.EDIT_LINK)
+    ] : []),
     ...(contentType === "header" ? [
       createToggleItem("toggleHeaderAdditionalInput", showHeaderAdditionalInput, imports.icons.ADDITIONAL_INPUT),
       createToggleItem("toggleHeaderNumber", showHeaderNumber, imports.icons.HEADER_NUMBER)
@@ -135,7 +139,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       currency: () => setCurrency(propertyValue), // Add this line
       addWidget: addWidget,
       toggleAdditionalInput: () => {
-        if (contentType === "devnote" || contentType === "note" || contentType === "answer" || contentType === "question" || contentType === "section") {
+        if (contentType === "devnote" || contentType === "note" || contentType === "answer" || contentType === "question" || contentType === "section" || contentType === "customcomponent") {
           setShowAdditionalInput(!showAdditionalInput);
         } else if (contentType === "header") {
           setShowHeaderAdditionalInput(!showHeaderAdditionalInput);
@@ -264,6 +268,10 @@ function Widget(props: Partial<AutoLayoutProps>) {
         ...(newContentType === "note" && {
           noteText: "",
           additionalInputText: ""
+        }),
+        ...(newContentType === "customcomponent" && {
+          customComponentText: "",
+          additionalInputText: ""
         })
       });
 
@@ -317,6 +325,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <imports.Note {...commonProps} showAdditionalInput={showAdditionalInput} />;
     } else if (contentType === "section") { // Add this block
       return <Section {...commonProps} showAdditionalInput={showAdditionalInput} showHeaderNumber={showHeaderNumber} />;
+    } else if (contentType === "customcomponent") { // Add this block
+      return <imports.CustomComponent {...commonProps} showAdditionalInput={showAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;

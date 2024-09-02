@@ -5,4 +5,5 @@ export const contentTypeOptions = [
     { option: "answer", label: "Answer" },
     { option: "note", label: "Note" },
     { option: "devnote", label: "Dev Note" },
+    { option: "customcomponent", label: "Custom" },
 ];
