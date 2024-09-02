@@ -106,7 +106,7 @@ function Custom(props: Partial<AutoLayoutProps> & {
                     <Input
                         name="custom"
                         value={props.answerText}
-                        placeholder="Answer..."
+                        placeholder="Label..."
                         onTextEditEnd={(event) => props.setAnswerText(event.characters)}
                         fill="#1E1E1E"
                         width="fill-parent"
