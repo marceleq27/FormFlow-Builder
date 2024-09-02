@@ -103,13 +103,13 @@ function Section(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                     },
                     {
                         type: "drop-shadow",
-                        color: "#6D28D940",
+                        color: "#6D28D91A",
                         offset: {
                             x: 0,
                             y: 0,
                         },
                         blur: 0,
-                        spread: 4,
+                        spread: 6,
                         showShadowBehindNode:
                             true,
                     },
@@ -119,7 +119,7 @@ function Section(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                 direction="vertical"
                 width={372}
                 stroke="#7C3AED"
-                strokeWidth={2}
+                strokeWidth={1}
 
             >
                 <AutoLayout

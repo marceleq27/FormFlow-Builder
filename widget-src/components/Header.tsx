@@ -24,7 +24,7 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                 {props.showHeaderNumber && (
                     <AutoLayout
                         name="number"
-                        fill="#7C3AED"
+                        fill="#FDEBD8"
                         height={29}
                         cornerRadius={{
                             topLeft: 8,
@@ -46,7 +46,7 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                             value={numberInputText}
                             placeholder="1"
                             onTextEditEnd={(event) => setNumberInputText(event.characters)}
-                            fill="#FFFFFF"
+                            fill="#A82A00"
                             lineHeight="150%"
                             fontFamily="Inter"
                             fontSize={14}
@@ -59,7 +59,7 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                 )}
                 <AutoLayout
                     name="label"
-                    fill="#7C3AED"
+                    fill="#FDEBD8"
                     cornerRadius={{
                         topLeft: 8,
                         topRight: 8,
@@ -77,7 +77,7 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                 >
                     <Text
                         name="HeaderLabel"
-                        fill="#FFFFFF"
+                        fill="#A82A00"
                         lineHeight="150%"
                         fontFamily="Inter"
                         fontSize={14}
@@ -105,6 +105,8 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                 cornerRadius={12}
                 direction="vertical"
                 width={372}
+                stroke="#B5BDC8"
+                strokeWidth={1}
             >
                 <AutoLayout
                     name="header-title"
@@ -163,7 +165,7 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                     </AutoLayout>
                 )}
             </AutoLayout>
-        </AutoLayout>
+        </AutoLayout >
     );
 }
 
