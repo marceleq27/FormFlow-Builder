@@ -19,6 +19,7 @@ import { answerTypeOptions } from './constants/answerTypeOptions';
 import { currencyOptions } from './constants/currencyOptions';
 import DevNote from './components/DevNote';
 import Note from './components/Note';
+import Section from './components/Section';
 
 export {
     Header,
@@ -41,5 +42,6 @@ export {
     answerTypeOptions,
     currencyOptions,
     DevNote,
-    Note
+    Note,
+    Section
 };

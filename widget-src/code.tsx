@@ -1,4 +1,5 @@
 import * as imports from './imports';
+import Section from './components/Section'; // Add this line
 
 const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
@@ -294,6 +295,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       return <imports.DevNote {...commonProps} showAdditionalInput={showAdditionalInput} />;
     } else if (contentType === "note") {
       return <imports.Note {...commonProps} showAdditionalInput={showAdditionalInput} />;
+    } else if (contentType === "section") { // Add this block
+      return <Section {...commonProps} showAdditionalInput={showAdditionalInput} showHeaderNumber={showHeaderNumber} />;
     } else {
       console.log("Error: Invalid content type");
       return <Text>Error: Invalid content type</Text>;
