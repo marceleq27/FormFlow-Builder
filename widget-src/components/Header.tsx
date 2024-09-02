@@ -105,11 +105,9 @@ function Header(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolea
                 cornerRadius={12}
                 direction="vertical"
                 width={372}
-                stroke="#B5BDC8"
-                strokeWidth={1}
             >
                 <AutoLayout
-                    name="header-title"
+                    name="header-text"
                     fill="#FFF"
                     stroke="#00000014"
                     strokeWidth={1}
