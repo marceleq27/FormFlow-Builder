@@ -272,7 +272,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       figma.currentPage.appendChild(newWidget);
 
       // Create a connector between the current widget and the new widget
-      if (newContentType === "question" || newContentType === "answer") {
+      if (newContentType === "question" || newContentType === "answer" || newContentType === "header") {
         const connector = figma.createConnector();
         connector.connectorStart = {
           endpointNodeId: currentWidget.id,
