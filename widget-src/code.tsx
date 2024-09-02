@@ -226,12 +226,14 @@ function Widget(props: Partial<AutoLayoutProps>) {
     const currentWidget = figma.currentPage.selection[0] as WidgetNode;
     if (currentWidget && currentWidget.type === "WIDGET") {
       let newContentType = contentType;
-      if (contentType === "header") {
+      if (contentType === "section") {
+        newContentType = "header";
+      } else if (contentType === "header") {
         newContentType = "question";
       } else if (contentType === "question") {
         newContentType = "answer";
       } else if (contentType === "answer") {
-        newContentType = "question"; // Add a Question component if the current content type is answer
+        newContentType = "question";
       }
 
       const newWidget = currentWidget.cloneWidget({
@@ -248,6 +250,19 @@ function Widget(props: Partial<AutoLayoutProps>) {
         ...(newContentType === "question" && {
           questionText: "",
           numberInputText: "",
+          additionalInputText: ""
+        }),
+        ...(newContentType === "section" && {
+          sectionText: "",
+          numberInputText: "",
+          additionalInputText: ""
+        }),
+        ...(newContentType === "devnote" && {
+          devNoteText: "",
+          additionalInputText: ""
+        }),
+        ...(newContentType === "note" && {
+          noteText: "",
           additionalInputText: ""
         })
       });
