@@ -5,7 +5,7 @@ const { widget } = figma;
 const { useSyncedState, usePropertyMenu, AutoLayout, Text } = widget;
 
 function Widget(props: Partial<AutoLayoutProps>) {
-  const [contentType, setContentType] = useSyncedState("contentType", "header");
+  const [contentType, setContentType] = useSyncedState("contentType", "section");
   const [answerType, setAnswerType] = useSyncedState("answerType", "Input");
   const [showAdditionalInput, setShowAdditionalInput] = useSyncedState("showAdditionalInput", false);
   const [isLinkEditable, setIsLinkEditable] = useSyncedState("isLinkEditable", false);
@@ -57,7 +57,10 @@ function Widget(props: Partial<AutoLayoutProps>) {
       createToggleItem("toggleHeaderAdditionalInput", showHeaderAdditionalInput, imports.icons.ADDITIONAL_INPUT),
       createToggleItem("toggleHeaderNumber", showHeaderNumber, imports.icons.HEADER_NUMBER)
     ] : []),
-    // Add these lines
+    ...(contentType === "section" ? [ // Add this block
+      createToggleItem("toggleSectionAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
+      createToggleItem("toggleSectionNumber", showHeaderNumber, imports.icons.HEADER_NUMBER)
+    ] : []),
     ...(contentType === "devnote" || contentType === "note" ? [
       createToggleItem("toggleAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT)
     ] : []),
@@ -78,7 +81,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       selectedOption: connectorColor,
     },
     { itemType: "separator" },
-    createLinkItem("guide", "Guide", "https://x.com/home", imports.icons.GUIDE)
+    createLinkItem("guide", "Guide", "https://github.com/eeecoh/FormFlow-Builder", imports.icons.GUIDE)
   ];
 
   console.log("Property menu items:", propertyMenuItems);
@@ -99,9 +102,9 @@ function Widget(props: Partial<AutoLayoutProps>) {
     let tooltip;
     if (propertyName === "toggleValidationRequired") {
       tooltip = "Required";
-    } else if (propertyName === "toggleQuestionAdditionalInput" || propertyName === "toggleAdditionalInput" || propertyName === "toggleHeaderAdditionalInput") {
+    } else if (propertyName === "toggleQuestionAdditionalInput" || propertyName === "toggleAdditionalInput" || propertyName === "toggleHeaderAdditionalInput" || propertyName === "toggleSectionAdditionalInput") {
       tooltip = "Additional information";
-    } else if (propertyName === "toggleQuestionNumber" || propertyName === "toggleHeaderNumber") {
+    } else if (propertyName === "toggleQuestionNumber" || propertyName === "toggleHeaderNumber" || propertyName === "toggleSectionNumber") {
       tooltip = "Number";
     } else if (propertyName === "toggleLinkEdit") {
       tooltip = isToggled ? "Save link" : "Edit link";
@@ -132,7 +135,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       currency: () => setCurrency(propertyValue), // Add this line
       addWidget: addWidget,
       toggleAdditionalInput: () => {
-        if (contentType === "devnote" || contentType === "note" || contentType === "answer" || contentType === "question") {
+        if (contentType === "devnote" || contentType === "note" || contentType === "answer" || contentType === "question" || contentType === "section") {
           setShowAdditionalInput(!showAdditionalInput);
         } else if (contentType === "header") {
           setShowHeaderAdditionalInput(!showHeaderAdditionalInput);
@@ -143,6 +146,8 @@ function Widget(props: Partial<AutoLayoutProps>) {
       toggleQuestionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
       toggleQuestionNumber: () => setShowQuestionNumber(!showQuestionNumber),
       toggleHeaderNumber: () => setShowHeaderNumber(!showHeaderNumber),
+      toggleSectionAdditionalInput: () => setShowAdditionalInput(!showAdditionalInput),
+      toggleSectionNumber: () => setShowHeaderNumber(!showHeaderNumber),
       toggleValidationRequired: () => setIsValidationRequired(!isValidationRequired),
       connectorColor: () => {
         setConnectorColor(propertyValue);

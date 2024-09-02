@@ -172,7 +172,7 @@ function Section(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boole
                             width="fill-parent"
                             lineHeight="150%"
                             fontFamily="Inter"
-                            fontSize={12}
+                            fontSize={14}
                             letterSpacing={-0.132}
                             fontWeight={500}
                         />
