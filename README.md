@@ -3,12 +3,12 @@
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/eeecoh/FormFlow-Builder?style=flat&labelColor=white&color=green)
 ![Typescript](https://img.shields.io/badge/Typescript-blue)
-![Figma](https://img.shields.io/badge/Figjam-violet)
+![Figma](https://img.shields.io/badge/FigJam-violet)
 
 
 
-# FormFlow Builder for Figjam
-FormFlow Builder is a Figjam widget designed to streamline the process of creating and visualising form flows. Whether you're designing a complex questionnaire, a multi-step form, or a user onboarding process, FormFlow Builder enables you to quickly build out form structures with ease.
+# FormFlow Builder for FigJam
+FormFlow Builder is a FigJam widget designed to streamline the process of creating and visualising form flows. Whether you're designing a complex questionnaire, a multi-step form, or a user onboarding process, FormFlow Builder enables you to quickly build out form structures with ease.
 
 
 
