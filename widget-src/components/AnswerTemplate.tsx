@@ -56,7 +56,7 @@ function AnswerTemplate(props: AnswerTemplateProps & {
                         letterSpacing={-0.154}
                         fontWeight={600}
                     >
-                        Answer
+                        Response type
                     </Text>
                 </AutoLayout>
             </AutoLayout>
@@ -91,19 +91,37 @@ function AnswerTemplate(props: AnswerTemplateProps & {
                     }}
                     width="fill-parent"
                 >
-                    <Input
-                        name="Input"
-                        value={props.answerText}
-                        placeholder="Label..."
-                        onTextEditEnd={(event) => props.setAnswerText(event.characters)}
-                        fill="#000"
+                    <AutoLayout
+                        name="input-container"
+                        direction="vertical"
+                        spacing={0}
                         width="fill-parent"
-                        lineHeight="150%"
-                        fontFamily="Inter"
-                        fontSize={16}
-                        letterSpacing={-0.198}
-                        fontWeight={500}
-                    />
+                    >
+                        <Text
+                            name="field-label"
+                            fill="#000"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={8}
+                            fontWeight={700}
+                            opacity={0.5}
+                        >
+                            LABEL
+                        </Text>
+                        <Input
+                            name="Input"
+                            value={props.answerText}
+                            placeholder="Label..."
+                            onTextEditEnd={(event) => props.setAnswerText(event.characters)}
+                            fill="#000"
+                            width="fill-parent"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={16}
+                            letterSpacing={-0.198}
+                            fontWeight={500}
+                        />
+                    </AutoLayout>
                     <AutoLayout
                         name="type-badge"
                         fill="#E3E4E8"

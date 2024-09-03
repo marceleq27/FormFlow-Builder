@@ -37,7 +37,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       {
         itemType: "dropdown",
         propertyName: "answerType",
-        tooltip: "Select Answer Type",
+        tooltip: "Select Response type",
         options: imports.answerTypeOptions,
         selectedOption: answerType,
       },

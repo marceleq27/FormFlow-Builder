@@ -13,6 +13,8 @@ import Slider from './components/answertype/Slider';
 import Signature from './components/answertype/Signature';
 import Custom from './components/answertype/Custom';
 import Question from './components/Question';
+import EmailInput from './components/answertype/EmailInput';
+import PhoneNumberInput from './components/answertype/PhoneNumberInput';
 import { icons } from './icons';
 import { contentTypeOptions } from './constants/contentTypeOptions';
 import { answerTypeOptions } from './constants/answerTypeOptions';
@@ -38,6 +40,8 @@ export {
     Signature,
     Custom,
     Question,
+    EmailInput,
+    PhoneNumberInput,
     icons,
     contentTypeOptions,
     answerTypeOptions,
