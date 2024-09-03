@@ -1,9 +1,8 @@
 const { useSyncedState, AutoLayout, Input, Frame, SVG, Text } = figma.widget;
 
-function CustomComponent(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean, isLinkEditable?: boolean, }) {
+function CustomComponent(props: Partial<AutoLayoutProps> & { showAdditionalInput?: boolean, isLinkEditable?: boolean, additionalInputText?: string, setAdditionalInputText?: (text: string) => void }) {
     const [linkText, setLinkText] = useSyncedState("linkText", "");
     const [customComponentText, setCustomComponentText] = useSyncedState("customComponentText", "");
-    const [additionalInputText, setAdditionalInputText] = useSyncedState("additionalInputText", "");
 
     const handleLinkClick = () => {
         if (linkText) {
@@ -237,7 +236,7 @@ function CustomComponent(props: Partial<AutoLayoutProps> & { showAdditionalInput
                 </AutoLayout>
                 {props.showAdditionalInput && (
                     <AutoLayout
-                        name="additonal"
+                        name="additional"
                         fill="#FFF"
                         strokeWidth={2}
                         strokeAlign="outside"
@@ -251,9 +250,9 @@ function CustomComponent(props: Partial<AutoLayoutProps> & { showAdditionalInput
                     >
                         <Input
                             name="additionalInput"
-                            value={props.additionalInputText}
+                            value={props.additionalInputText || ""}
                             placeholder="Additional information"
-                            onTextEditEnd={(event) => props.setAdditionalInputText(event.characters)}
+                            onTextEditEnd={(event) => props.setAdditionalInputText && props.setAdditionalInputText(event.characters)}
                             fill="#1E1E1E9E"
                             width="fill-parent"
                             lineHeight="150%"

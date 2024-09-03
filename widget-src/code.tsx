@@ -54,7 +54,7 @@ function Widget(props: Partial<AutoLayoutProps>) {
       ] : [])
     ] : []),
     ...(contentType === "customcomponent" ? [
-      createToggleItem("toggleCustomComponentAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
+      createToggleItem("toggleAdditionalInput", showAdditionalInput, imports.icons.ADDITIONAL_INPUT),
       createToggleItem("toggleLinkEdit", isLinkEditable, imports.icons.EDIT_LINK)
     ] : []),
     ...(contentType === "header" ? [
