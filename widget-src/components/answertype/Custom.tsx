@@ -103,19 +103,37 @@ function Custom(props: Partial<AutoLayoutProps> & {
                     }}
                     width="fill-parent"
                 >
-                    <Input
-                        name="custom"
-                        value={props.answerText}
-                        placeholder="Label..."
-                        onTextEditEnd={(event) => props.setAnswerText(event.characters)}
-                        fill="#1E1E1E"
+                    <AutoLayout
+                        name="input-container"
+                        direction="vertical"
+                        spacing={0}
                         width="fill-parent"
-                        lineHeight="150%"
-                        fontFamily="Inter"
-                        fontSize={18}
-                        letterSpacing={-0.198}
-                        fontWeight={500}
-                    />
+                    >
+                        <Text
+                            name="field-label"
+                            fill="#000"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={8}
+                            fontWeight={700}
+                            opacity={0.5}
+                        >
+                            LABEL
+                        </Text>
+                        <Input
+                            name="custom"
+                            value={props.answerText}
+                            placeholder="Label..."
+                            onTextEditEnd={(event) => props.setAnswerText(event.characters)}
+                            fill="#1E1E1E"
+                            width="fill-parent"
+                            lineHeight="150%"
+                            fontFamily="Inter"
+                            fontSize={18}
+                            letterSpacing={-0.198}
+                            fontWeight={500}
+                        />
+                    </AutoLayout>
                     <AutoLayout
                         name="badges-container"
                         direction="horizontal"
