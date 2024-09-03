@@ -67,7 +67,7 @@ function Custom(props: Partial<AutoLayoutProps> & {
                         }
                         fontWeight={600}
                     >
-                        Answer
+                        Response type
                     </Text>
                 </AutoLayout>
             </AutoLayout>
